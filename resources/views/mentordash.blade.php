@@ -35,7 +35,7 @@
           <img src="img/logo.png" alt="logo" class="h-8 w-8 absolute top-4 left-6"/>
           <a href="/mentordash" class="block py-2 px-4 rounded hover:bg-white/10">Dashboard</a>
           <a href="/maganglist" class="block py-2 px-4 rounded hover:bg-white/10">Daftar Anak Magang</a>
-          <a href="#" class="block py-2 px-4 rounded hover:bg-white/10">Pengumuman</a>
+          <a href="/mentor/pengumuman" class="block py-2 px-4 rounded hover:bg-white/10">Pengumuman</a>
           <a href="#" class="block py-2 px-4 rounded hover:bg-white/10">Lihat Daftar Tugas</a>
           <a href="/logout" class="absolute bottom-0 size-16 block py-2 px-4 rounded hover:bg-white/10">
             Keluar

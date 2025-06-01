@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Daftar Anak Magang</title>
+  <title>Tambahkan Anak Magang</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/alpinejs" defer></script>
 </head>
@@ -41,43 +41,45 @@
     </div>
 
     <!-- Main Content -->
-    <div class="flex-1 p-10 overflow-auto">
-      <h1 class="text-white text-3xl font-bold mb-6 leading-tight">Daftar<br>Anak Magang</h1>
+    <div class="flex-1 p-20 overflow-auto">
+      <h1 class="text-white text-3xl font-bold mb-6 leading-tight">Tambahkan<br>Pengumuman</h1>
 
-      <div class="bg-white rounded-lg shadow-lg overflow-x-auto border-4 border-[#6DC6FF]">
-        <table class="min-w-full text-left border-collapse">
-          <thead class="bg-white">
-            <tr>
-              <th class="px-6 py-3 font-semibold border border-gray-200">Nama</th>
-              <th class="px-6 py-3 font-semibold border border-gray-200">Email</th>
-              <th class="px-6 py-3 font-semibold border border-gray-200">Kelas</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Ulangi baris ini sesuai jumlah data -->
-            @foreach ($data as $item)
-            <tr class="bg-white">
-              <td class="px-6 py-3 border border-gray-200">{{ $item->name }}</td>
-              <td class="px-6 py-3 border border-gray-200">{{ $item->email }}</td>
-              <td class="px-6 py-3 border border-gray-200">cell </td>
-            </tr>  
-            @endforeach
-            
-            <!-- Tambahkan baris lain sesuai data -->
-          </tbody>
-        </table>
-      </div>
+    <form action="{{ url('form/pengumuman') }}" method="post" class=" p-8 space-y-6 max-w-xl ">
+        @csrf
+        <div>
+            <label for="judul" class="block text-white font-semibold mb-2">Judul:</label>
+            <input type="text" id="judul" name="judul" required
+            class="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-400">
+        </div>
 
-      <div class="flex justify-end mt-6">
-        <a href="/formmaganglist"
-        class="bg-pink-400 hover:bg-pink-500 text-white font-semibold py-2 px-6 rounded-full shadow-md transition duration-200">
-          Tambah Peserta</a>
-        
-      </div>
+        <div>
+            <label for="kelas" class="block text-white font-semibold mb-2">Pilih Kelas:</label>
+            <select id="kelas" name="kelas_id" required
+            class="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-400">
+            <option value="" disabled selected>Pilih kelas</option>
+            <option value="1">Copy Writer</option>
+            <option value="2">Web Developer Fullstack</option>
+            <option value="3">Web Developer Laravel</option>
+            <!-- Tambahkan opsi lainnya sesuai kebutuhan -->
+            </select>
+        </div>
+
+        <div>
+            <label for="isi" class="block text-white font-semibold mb-2">Pengumuman:</label>
+            <textarea id="isi" name="isi" rows="6" required
+            class="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-400 resize-y"></textarea>
+        </div>
+
+
+        <div class="flex justify-end absolute right-20 bottom-12">
+            <button type="submit"
+            class="bg-pink-400 hover:bg-pink-500 text-white font-semibold py-2 px-8 rounded-full shadow-md transition duration-200">
+            Simpan
+            </button>
+        </div>
+    </form>
+
     </div>
   </div>
-
-  
-
 </body>
 </html>

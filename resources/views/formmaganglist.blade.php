@@ -32,7 +32,7 @@
         <img src="img/logo.png" alt="logo" class="h-8 w-8 absolute top-4 left-6" />
         <a href="/mentordash" class="block py-2 px-4 rounded hover:bg-white/10">Dashboard</a>
         <a href="/maganglist" class="block py-2 px-4 rounded hover:bg-white/10">Daftar Anak Magang</a>
-        <a href="#" class="block py-2 px-4 rounded hover:bg-white/10">Pengumuman</a>
+        <a href="/mentor/pengumuman" class="block py-2 px-4 rounded hover:bg-white/10">Pengumuman</a>
         <a href="#" class="block py-2 px-4 rounded hover:bg-white/10">Lihat Daftar Tugas</a>
         <a href="/logout" class="absolute bottom-0 w-full block py-2 px-4 rounded hover:bg-white/10">
           Keluar
@@ -44,22 +44,17 @@
     <div class="flex-1 p-20 overflow-auto">
       <h1 class="text-white text-3xl font-bold mb-6 leading-tight">Tambahkan<br>Anak Magang</h1>
 
-      <form action="#" method="POST" class=" p-8 space-y-6 max-w-xl ">
+      <form action="{{ url('formmaganglist') }}" method="post" class=" p-8 space-y-6 max-w-xl ">
+        @csrf
         <div>
-          <label for="nama" class="block text-white font-semibold mb-2">Nama:</label>
-          <input type="text" id="nama" name="nama" required
+          <label for="name" class="block text-white font-semibold mb-2">Nama:</label>
+          <input type="text" id="name" name="name" required
             class="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-400">
         </div>
 
         <div>
           <label for="email" class="block text-white font-semibold mb-2">Email:</label>
           <input type="email" id="email" name="email" required
-            class="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-400">
-        </div>
-
-        <div>
-          <label for="tanggal" class="block text-white font-semibold mb-2">Tanggal Lahir:</label>
-          <input type="date" id="tanggal" name="tanggal" required
             class="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-400">
         </div>
 
