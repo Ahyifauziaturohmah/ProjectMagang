@@ -46,4 +46,18 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    // Magang.php
+    public function kelas()
+    {
+        return $this->belongsTo(Kelas::class, 'id');
+    }
+
+    
+    public function divisi()
+    {
+        return $this->hasOne(Divisi::class, 'user_id');
+    }
+
+
+
 }

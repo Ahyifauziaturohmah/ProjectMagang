@@ -14,4 +14,9 @@ class Kelas extends Model
     {
         return $this->hasMany(Pengumuman::class);
     }
+    public function divisi()
+    {
+        return $this->hasMany(Divisi::class);
+    }
+
 }

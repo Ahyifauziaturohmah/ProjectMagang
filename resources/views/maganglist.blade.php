@@ -59,7 +59,7 @@
             <tr class="bg-white">
               <td class="px-6 py-3 border border-gray-200">{{ $item->name }}</td>
               <td class="px-6 py-3 border border-gray-200">{{ $item->email }}</td>
-              <td class="px-6 py-3 border border-gray-200">cell </td>
+              <td class="px-6 py-3 border border-gray-200">{{  $item->divisi?->kelas?->nama_kelas ?? '-'}}</td>
             </tr>  
             @endforeach
             
@@ -72,6 +72,12 @@
         <a href="/formmaganglist"
         class="bg-pink-400 hover:bg-pink-500 text-white font-semibold py-2 px-6 rounded-full shadow-md transition duration-200">
           Tambah Peserta</a>
+        
+      </div>
+      <div class="flex justify-end mt-6">
+        <a href="/form/divisi"
+        class="bg-pink-400 hover:bg-pink-500 text-white font-semibold py-2 px-6 rounded-full shadow-md transition duration-200">
+          Tambah Divisi</a>
         
       </div>
     </div>

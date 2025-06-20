@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DivisiController;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\SesiController;
 use App\Http\Controllers\userController;
@@ -24,12 +25,17 @@ Route::get('/form/pengumuman', [PengumumanController::class, 'create']);
 Route::get('/mentor/pengumuman', [PengumumanController::class, 'index']);
 Route::post('/form/pengumuman', [PengumumanController::class, 'store']);
 
+Route::get('/form/divisi', [DivisiController::class, 'create']);
+Route::post('/form/divisi', [DivisiController::class, 'store'])->name('atur.divisi.store');
+
+
 Route::get('/login', function () {
     return view('login');
 });
 
-// Route::get('/mentor/pengumuman', function () {
-//     return view('mentor_pengumuman');
+// Route::get('/form/Divisi', [])
+// Route::get('/form/divisi', function () {
+//     return view('form_atur_divisi');
 // });
 
 // Route::get('/form/pengumuman', function () {

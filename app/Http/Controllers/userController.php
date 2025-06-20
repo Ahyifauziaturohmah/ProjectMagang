@@ -8,8 +8,11 @@ use Illuminate\Http\Request;
 class userController extends Controller
 {
     public function index(){
-        $data = User::where('role', 'magang')->orderBy('id','desc')->get();
-        return view('maganglist')->with('data', $data);
+        $data = User::with(['divisi.kelas']) // eager load divisi dan kelas-nya
+                ->where('role', 'magang')
+                ->get();
+
+    return view('maganglist', compact('data'));
     }
     
     public function create(){
