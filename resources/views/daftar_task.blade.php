@@ -42,24 +42,32 @@
 
     <!-- Main Content -->
     <div class="flex-1 p-10 overflow-auto">
-      <h1 class="text-white text-3xl font-bold mb-6 leading-tight">Daftar<br>Anak Magang</h1>
+      <h1 class="text-white text-3xl font-bold mb-6 leading-tight">Daftar<br>Laporan Magang</h1>
 
       <div class="bg-white rounded-lg shadow-lg overflow-x-auto border-4 border-[#6DC6FF]">
         <table class="min-w-full text-left border-collapse">
           <thead class="bg-white">
             <tr>
-              <th class="px-6 py-3 font-semibold border border-gray-200">Nama</th>
-              <th class="px-6 py-3 font-semibold border border-gray-200">Email</th>
-              <th class="px-6 py-3 font-semibold border border-gray-200">Kelas</th>
+              <th class="px-6 py-3 font-semibold border border-gray-200">Judul</th>
+              <th class="px-6 py-3 font-semibold border border-gray-200">Deskripsi</th>
+              <th class="px-6 py-3 font-semibold border border-gray-200">Tenggat</th>
+              <th class="px-6 py-3 font-semibold border border-gray-200">Divisi</th>
+              <th class="px-6 py-3 font-semibold border border-gray-200">Detail</th>
             </tr>
           </thead>
           <tbody>
             <!-- Ulangi baris ini sesuai jumlah data -->
             @foreach ($data as $item)
             <tr class="bg-white">
-              <td class="px-6 py-3 border border-gray-200">{{ $item->name }}</td>
-              <td class="px-6 py-3 border border-gray-200">{{ $item->email }}</td>
-              <td class="px-6 py-3 border border-gray-200">{{  $item->divisi?->kelas?->nama_kelas ?? '-'}}</td>
+              <td class="px-6 py-3 border border-gray-200">{{$item->judul}}</td>
+              <td class="px-6 py-3 border border-gray-200">{{$item->deskripsi}}</td>
+              <td class="px-6 py-3 border border-gray-200">{{$item->tenggat}}</td>
+              <td class="px-6 py-3 border border-gray-200">{{$item->kelas->nama_kelas}}</td>
+              <td class="px-6 py-3 border border-gray-200">
+                <a href="{{ route('task.pengumpulan', $item->id) }}" class="bg-pink-400 text-white px-4 py-1 rounded-full font-semibold text-sm hover:bg-pink-500">
+                    Detail
+                </a>
+              </td>
             </tr>  
             @endforeach
             
@@ -69,21 +77,11 @@
       </div>
 
       <div class="flex justify-end mt-6">
-        <a href="/formmaganglist"
+        <a href="/tambah/task"
         class="bg-pink-400 hover:bg-pink-500 text-white font-semibold py-2 px-6 rounded-full shadow-md transition duration-200">
-          Tambah Peserta</a>
-        
-      </div>
-      <div class="flex justify-end mt-6">
-        <a href="/form/divisi"
-        class="bg-pink-400 hover:bg-pink-500 text-white font-semibold py-2 px-6 rounded-full shadow-md transition duration-200">
-          Tambah Divisi</a>
-        
+          Tambah </a>
       </div>
     </div>
   </div>
-
-  
-
 </body>
 </html>

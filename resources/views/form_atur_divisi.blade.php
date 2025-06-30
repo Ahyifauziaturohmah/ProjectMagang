@@ -32,7 +32,7 @@
         <a href="/mentordash" class="py-2 px-4 rounded hover:bg-white/10">Dashboard</a>
         <a href="/maganglist" class="py-2 px-4 rounded hover:bg-white/10">Daftar Anak Magang</a>
         <a href="/mentor/pengumuman" class="py-2 px-4 rounded hover:bg-white/10">Pengumuman</a>
-        <a href="#" class="py-2 px-4 rounded hover:bg-white/10">Lihat Daftar Tugas</a>
+        <a href="/mentor/task" class="py-2 px-4 rounded hover:bg-white/10">Lihat Daftar Tugas</a>
         <a href="/logout" class="mt-auto py-2 px-4 rounded hover:bg-white/10">Keluar</a>
       </nav>
     </aside>

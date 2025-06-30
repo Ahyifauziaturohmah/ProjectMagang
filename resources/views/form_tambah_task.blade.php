@@ -42,35 +42,50 @@
 
     <!-- Main Content -->
     <div class="flex-1 p-20 overflow-auto">
-      <h1 class="text-white text-3xl font-bold mb-6 leading-tight">Tambahkan<br>Anak Magang</h1>
+      <h1 class="text-white text-3xl font-bold mb-6 leading-tight">Tambahkan<br>Pengumuman</h1>
 
-      <form action="{{ url('formmaganglist') }}" method="post" class=" p-8 space-y-6 max-w-xl ">
+    <form action="{{ url('/tambah/task') }}" method="post" class=" p-8 space-y-6 max-w-xl ">
         @csrf
         <div>
-          <label for="name" class="block text-white font-semibold mb-2">Nama:</label>
-          <input type="text" id="name" name="name" required
+            <label for="judul" class="block text-white font-semibold mb-2">Judul:</label>
+            <input type="text" id="judul" name="judul" required
+            class="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-400">
+        </div>
+        <div>
+            <label for="isi" class="block text-white font-semibold mb-2">Deskripsi:</label>
+            <textarea id="deskripsi" name="deskripsi" rows="6" required
+            class="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-400 resize-y"></textarea>
+        </div>
+        
+        <div>
+            <label for="judul" class="block text-white font-semibold mb-2">Tenggat:</label>
+            <input type="date" id="tenggat" name="tenggat" required
             class="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-400">
         </div>
 
         <div>
-          <label for="email" class="block text-white font-semibold mb-2">Email:</label>
-          <input type="email" id="email" name="email" required
+            <label for="kelas" class="block text-white font-semibold mb-2">Pilih Kelas:</label>
+            <select id="kelas" name="kelas_id" required
             class="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-400">
+            <option value="" disabled selected>Pilih kelas</option>
+            <option value="1">Copy Writer</option>
+            <option value="2">Web Developer Fullstack</option>
+            <option value="3">Web Developer Laravel</option>
+            <!-- Tambahkan opsi lainnya sesuai kebutuhan -->
+            </select>
         </div>
 
-        <div>
-          <label for="password" class="block text-white font-semibold mb-2">Password:</label>
-          <input type="password" id="password" name="password" required
-            class="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-400">
-        </div>
+        
+
 
         <div class="flex justify-end absolute right-20 bottom-12">
-          <button type="submit"
+            <button type="submit"
             class="bg-pink-400 hover:bg-pink-500 text-white font-semibold py-2 px-8 rounded-full shadow-md transition duration-200">
-            Submit
-          </button>
+            Simpan
+            </button>
         </div>
-      </form>
+    </form>
+
     </div>
   </div>
 </body>
