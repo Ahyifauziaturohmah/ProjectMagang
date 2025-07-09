@@ -28,12 +28,13 @@
 
       <!-- Menu -->
       <nav x-show="open" x-transition class="flex flex-col w-full px-4 space-y-2">
-        <img src="{{ asset('img/logo.png') }}" alt="logo" class="h-8 w-8 absolute top-4 left-6" />
-        <a href="/mentordash" class="block py-2 px-4 rounded hover:bg-white/10">Dashboard</a>
-        <a href="/maganglist" class="block py-2 px-4 rounded hover:bg-white/10">Daftar Anak Magang</a>
-        <a href="/mentor/pengumuman" class="block py-2 px-4 rounded hover:bg-white/10">Pengumuman</a>
-        <a href="/mentor/task" class="block py-2 px-4 rounded hover:bg-white/10">Lihat Daftar Tugas</a>
-        <a href="/logout" class="absolute bottom-0 w-full block py-2 px-4 rounded hover:bg-white/10">Keluar</a>
+        <img src="{{ asset('img/logo.png') }}" alt="logo" class="h-8 w-8 absolute top-4 left-6"/>
+        <a href="/magangdash" class="block py-2 px-4 rounded hover:bg-white/10">Dashboard</a>
+        <a href="/magang/pengumuman" class="block py-2 px-4 rounded hover:bg-white/10">Pengumuman</a>
+        <a href="/magang/task" class="block py-2 px-4 rounded hover:bg-white/10">Lihat Daftar Tugas</a>
+        <a href="/logout" class="absolute bottom-0 size-16 block py-2 px-4 rounded hover:bg-white/10">
+          Keluar
+        </a>
       </nav>
     </div>
 
@@ -52,10 +53,7 @@
         @endforeach
       </div>
 
-      <!-- Tombol tambah -->
-      <a href="/form/pengumuman" class="fixed bottom-6 right-6 bg-pink-500 text-white font-semibold px-6 py-3 rounded-full shadow-lg hover:bg-pink-600">
-        Tambah Pengumuman
-      </a>
+      
     </div>
 
   </div>

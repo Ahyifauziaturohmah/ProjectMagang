@@ -16,7 +16,7 @@
       <!-- Tombol Toggle -->
       <div class="w-full flex justify-end p-4">
         <button @click="open = !open" class="focus:outline-none">
-          <img x-show="!open" src="img/Sidebar(wht).png" alt="Sidebar Close Icon" class="h-6 w-6 mx-auto" />
+          <img x-show="!open" src="{{ asset('img/Sidebar(wht).png') }}" alt="Sidebar Close Icon" class="h-6 w-6 mx-auto" />
           <!-- Ikon saat sidebar BUKA -->
           <svg x-show="open" xmlns="http://www.w3.org/2000/svg"
                class="h-8 w-8 mx-auto" fill="none" viewBox="0 0 24 24"
@@ -29,7 +29,7 @@
 
       <!-- Menu -->
       <nav x-show="open" x-transition class="flex flex-col w-full px-4 space-y-2">
-        <img src="img/logo.png" alt="logo" class="h-8 w-8 absolute top-4 left-6" />
+        <img src="{{ asset('img/logo.png') }}" alt="logo" class="h-8 w-8 absolute top-4 left-6" />
         <a href="/mentordash" class="block py-2 px-4 rounded hover:bg-white/10">Dashboard</a>
         <a href="/maganglist" class="block py-2 px-4 rounded hover:bg-white/10">Daftar Anak Magang</a>
         <a href="/mentor/pengumuman" class="block py-2 px-4 rounded hover:bg-white/10">Pengumuman</a>

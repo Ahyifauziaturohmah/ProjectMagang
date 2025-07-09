@@ -33,22 +33,30 @@ Route::get('/form/divisi', [DivisiController::class, 'create']);
 Route::post('/form/divisi', [DivisiController::class, 'store'])->name('atur.divisi.store');
 
 Route::get('/tambah/task', [TaskController::class, 'create']);
-Route::get('/mentor/task', [TaskController::class, 'index']);
+Route::get('/mentor/task', [TaskController::class, 'index'])->name('laman.task');
 Route::post('/tambah/task', [TaskController::class, 'store']);
 
 Route::get('/mentor/task/pengumpulan/{id}', [PengumpulanController::class, 'show'])->name('task.pengumpulan');
+Route::get('/mentor/task/pengumpulan/task/{task_id}', [PengumpulanController::class, 'byTask'])->name('task.pengumpulan.byTask');
 
-Route::post('/mentor/task/pengumpulan/detail/{id}', [PengumpulanController::class, 'store'])->name('task.detail.pengumpulan');
-Route::get('/mentor/task/pengumpulan/detail/{id}', [PengumpulanController::class, 'create'])->name('task.detail.pengumpulan');
 
+Route::post('/mentor/task/pengumpulan/detail/{id}', [PengumpulanController::class, 'store'])->name('task.detail.pengumpulan.store');
+Route::get('/task/pengumpulan/detail/{id}', [PengumpulanController::class, 'create'])->name('task.detail.pengumpulan');
+
+Route::get('/magang/pengumuman', [PengumumanController::class, 'show']);
+
+Route::get('/magang/task', [TaskController::class, 'magang'])->name('task.magang');
+
+Route::get('/magang/task/pengumpulan/{id}', [TaskController::class, 'submit'])->name('task.submit');
+Route::post('/magang/task/pengumpulan/{task}', [TaskController::class, 'submitTugas'])->name('task.submit');
 
 Route::get('/login', function () {
     return view('login');
 });
 
-// Route::get('/form/Divisi', [])
-// Route::get('/mentor/task', function () {
-//     return view('daftar_task');
+
+// Route::get('/magang/pengumuman', function () {
+//     return view('pengumuman_magang');
 // });
 
 

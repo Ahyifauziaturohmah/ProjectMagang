@@ -8,7 +8,7 @@ class Pengumpulan extends Model
 {
     protected $table = 'pengumpulan'; 
 
-    protected $fillable = ['tautan', 'evaluasi'];
+    protected $fillable = ['user_id', 'task_id', 'tautan', 'evaluasi'];
 
     public function kelas()
     {

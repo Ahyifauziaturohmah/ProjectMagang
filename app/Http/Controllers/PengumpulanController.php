@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pengumpulan;
+use App\Models\Task;
 use Illuminate\Http\Request;
 
 class PengumpulanController extends Controller
@@ -20,6 +21,18 @@ class PengumpulanController extends Controller
         $data = [$pengumpulan];
         return view('daftar_pengumpulan', compact('data'));
     }
+    public function submit($task_id) {
+        $task = Task::with('pengumpulans')->findOrFail($task_id);
+        return view('pengumpulan_magang')->with('task', $task);
+    }
+
+    public function byTask($task_id) {
+        $data = Pengumpulan::with('user', 'task')
+            ->where('task_id', $task_id)
+            ->get();
+
+        return view('daftar_pengumpulan', compact('data'));
+    }
 
 
     public function store(Request $request, $id)
@@ -32,9 +45,11 @@ class PengumpulanController extends Controller
         $pengumpulan->evaluasi = $request->evaluasi;
         $pengumpulan->save();
 
-        return redirect()->route('task.pengumpulan', ['id' => $pengumpulan->task_id])
+        return redirect()->route('laman.task', ['id' => $pengumpulan->task_id])
                         ->with('success', 'Evaluasi berhasil disimpan');
     }
+
+    
 
 
     

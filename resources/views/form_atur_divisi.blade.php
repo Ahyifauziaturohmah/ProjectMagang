@@ -14,8 +14,8 @@
     <!-- Sidebar -->
     <aside :class="open ? 'w-64' : 'w-16'" class="bg-[#1578AE] transition-all duration-300 flex flex-col items-center relative text-white py-4">
       <!-- Toggle Button -->
-      <button @click="open = !open" class="mb-4 focus:outline-none">
-        <img x-show="!open" x-cloak src="img/Sidebar(wht).png" alt="Open Sidebar" class="h-6 w-6" />
+      <button @click="open = !open" class="focus:outline-none">
+        <img x-show="!open" x-cloak src="{{ asset('img/Sidebar(wht).png') }}" alt="Open Sidebar" class="h-6 w-6" />
         <svg x-show="open" x-cloak xmlns="http://www.w3.org/2000/svg"
              class="h-6 w-6" fill="none" viewBox="0 0 24 24"
              stroke="currentColor">
@@ -25,10 +25,11 @@
       </button>
 
       <!-- Logo -->
-      <img src="img/logo.png" alt="Logo" class="h-8 w-8 mb-6" x-show="open" x-cloak />
+      {{-- <img src="img/logo.png" alt="Logo" class="h-8 w-8 mb-6" x-show="open" x-cloak /> --}}
 
       <!-- Menu -->
       <nav x-show="open" x-cloak class="flex flex-col space-y-2 w-full px-4 text-sm">
+        <img src="{{ asset('img/logo.png') }}" alt="logo" class="h-8 w-8 absolute top-4 left-6"/>
         <a href="/mentordash" class="py-2 px-4 rounded hover:bg-white/10">Dashboard</a>
         <a href="/maganglist" class="py-2 px-4 rounded hover:bg-white/10">Daftar Anak Magang</a>
         <a href="/mentor/pengumuman" class="py-2 px-4 rounded hover:bg-white/10">Pengumuman</a>

@@ -47,10 +47,10 @@ class User extends Authenticatable
         ];
     }
     // Magang.php
-    public function kelas()
-    {
-        return $this->belongsTo(Kelas::class, 'id');
+    public function kelas() {
+        return $this->belongsTo(Kelas::class);
     }
+    
 
     
     public function divisi()

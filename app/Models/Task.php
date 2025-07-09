@@ -18,4 +18,10 @@ class Task extends Model
     {
         return $this->hasMany(Pengumpulan::class);
     }
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+    public function divisi() {
+        return $this->belongsTo(Divisi::class);
+    }
 }
