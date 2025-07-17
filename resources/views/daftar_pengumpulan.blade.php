@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Daftar Pengumpulan</title>
+  <title>Monitoring Winnicode</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/alpinejs" defer></script>
 </head>
@@ -16,7 +16,7 @@
       <!-- Tombol Toggle -->
       <div class="w-full flex justify-end p-4">
         <button @click="open = !open" class="focus:outline-none">
-          <img x-show="!open" src="img/Sidebar(wht).png" alt="Sidebar Close Icon" class="h-6 w-6 mx-auto" />
+          <img x-show="!open" src="{{ asset('img/Sidebar(wht).png') }}" alt="Sidebar Close Icon" class="h-6 w-6 mx-auto" />
           <!-- Ikon saat sidebar BUKA -->
           <svg x-show="open" xmlns="http://www.w3.org/2000/svg"
                class="h-8 w-8 mx-auto" fill="none" viewBox="0 0 24 24"

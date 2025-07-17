@@ -11,7 +11,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware ->alias([
+            'mentor' => \App\Http\Middleware\IsMentor::class,
+            'magang' => \App\Http\Middleware\IsMagang::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
