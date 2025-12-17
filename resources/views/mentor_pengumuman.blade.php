@@ -33,6 +33,7 @@
         <a href="/maganglist" class="block py-2 px-4 rounded hover:bg-white/10">Daftar Anak Magang</a>
         <a href="/mentor/pengumuman" class="block py-2 px-4 rounded hover:bg-white/10">Pengumuman</a>
         <a href="/mentor/task" class="block py-2 px-4 rounded hover:bg-white/10">Lihat Daftar Tugas</a>
+        <a href="/mentor/team/projek" class="block py-2 px-4 rounded hover:bg-white/10">Lihat Daftar Projek</a>
         <a href="/logout" class="absolute bottom-0 w-full block py-2 px-4 rounded hover:bg-white/10">Keluar</a>
       </nav>
     </div>
@@ -44,12 +45,22 @@
       <!-- Container Scroll -->
       <div class="h-[500px] overflow-y-auto space-y-10 pr-2">
         @foreach ($data as $item)
-          <div class="p-4 rounded-lg shadow-md bg-grey">
-            <h2 class="text-white text-xl font-semibold mb-2">{{ $item->judul }}</h2>
-            <h4 class="text-white font-semibold mb-2">Kelas: {{ $item->kelas->nama_kelas }}</h4>
-            <p class="text-white text-sm leading-relaxed">{{ $item->isi }}</p>
+          <div class="p-4 rounded-lg shadow-md bg-white text-black">
+            <h2 class=" text-xl font-semibold mb-2">{{ $item->judul }}</h2>
+            <h4 class=" font-semibold mb-2">Divisi: {{ $item->kelas->nama_kelas }}</h4>
+            <p class=" text-sm leading-relaxed">{{ $item->isi }}</p>
+            <div class="py-8 px-0 ">
+              <a href="#" class="bg-[#ff8800] text-white font-semibold px-6 py-3 rounded-full shadow-lg hover:bg-[#a85a00] mr-4">
+                Edit
+              </a>
+              <a href="#" class="bg-[#ff0000] text-white font-semibold px-6 py-3 rounded-full shadow-lg hover:bg-[#8c0000]">
+                Hapus
+              </a>
+            </div>
+              
           </div>
         @endforeach
+        
       </div>
 
       <!-- Tombol tambah -->

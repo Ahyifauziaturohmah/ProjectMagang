@@ -10,7 +10,23 @@
 <body class="bg-[#1B7BA6] min-h-screen flex flex-col">
 
   <div x-data="{ open: false }" class="flex flex-1">
+    @if (session('success'))
+        <div x-data="{ show: true }" 
+             x-show="show" 
+             x-init="setTimeout(() => show = false, 3000)" 
+             x-transition:leave.duration.500ms
+             class="fixed top-5 right-5 z-50 p-4 rounded-lg shadow-xl text-white font-semibold flex items-center space-x-2 
+                    bg-pink-500 border border-pink-400">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
 
+            <p>{{ session('success') }}</p>
+            
+        </div>
+    @endif
+    
     <!-- Sidebar -->
     <div :class="open ? 'bg-white w-64' : 'bg-[#1578AE] w-16'" class="text-pink-500 transition-all duration-300 flex flex-col items-center relative">
       <!-- Tombol Toggle -->
@@ -34,6 +50,7 @@
         <a href="/maganglist" class="block py-2 px-4 rounded hover:bg-white/10">Daftar Anak Magang</a>
         <a href="/mentor/pengumuman" class="block py-2 px-4 rounded hover:bg-white/10">Pengumuman</a>
         <a href="/mentor/task" class="block py-2 px-4 rounded hover:bg-white/10">Lihat Daftar Tugas</a>
+        <a href="/mentor/team/projek" class="block py-2 px-4 rounded hover:bg-white/10">Lihat Daftar Projek</a>
         <a href="/logout" class="absolute bottom-0 w-full block py-2 px-4 rounded hover:bg-white/10">
           Keluar
         </a>
@@ -52,7 +69,7 @@
               <th class="px-6 py-3 font-semibold border border-gray-200">Deskripsi</th>
               <th class="px-6 py-3 font-semibold border border-gray-200">Tenggat</th>
               <th class="px-6 py-3 font-semibold border border-gray-200">Divisi</th>
-              <th class="px-6 py-3 font-semibold border border-gray-200">Detail</th>
+              <th class="px-6 py-3 font-semibold border border-gray-200">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -67,9 +84,24 @@
               <td class="px-6 py-3 border border-gray-200">{{$item->kelas->nama_kelas}}</td>
               <td class="px-6 py-3 border border-gray-200">
                  
-                <a href="{{ route('task.pengumpulan.byTask', $item->id)  }}" class="bg-pink-400 text-white px-4 py-1 rounded-full font-semibold text-sm hover:bg-pink-500">
+                <a href="{{ route('task.pengumpulan.byTask', $item->id)  }}" class="bg-pink-400 text-white px-4 py-1 rounded-full font-semibold text-sm hover:bg-pink-500 mr-4">
                     Detail
                 </a>
+                
+              <a href="{{ route('task.edit', $item->id) }}" class="bg-[#ff8800] text-white font-semibold px-4 py-1 rounded-full text-sm shadow-lg hover:bg-[#a85a00] mr-4">
+                Edit
+              </a>
+              @csrf
+              <form action="{{ route('task.destroy', $item->id) }}" method="POST" class="inline">
+                  @csrf
+                  @method('DELETE')
+                  <button type="submit" 
+                          class="bg-[#ff0000] text-white font-semibold px-4 py-1 rounded-full text-sm shadow-lg hover:bg-[#8c0000]"
+                          onclick="return confirm('Apakah Anda yakin ingin menghapus tugas ini?')">
+                      Hapus
+                  </button>
+              </form>
+            
               </td>
             </tr>  
             @endforeach

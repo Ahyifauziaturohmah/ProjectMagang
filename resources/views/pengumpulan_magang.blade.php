@@ -31,8 +31,10 @@
       <nav x-show="open" x-transition class="flex flex-col w-full px-4 space-y-2">
         <img src="{{ asset('img/logo.png') }}" alt="logo" class="h-8 w-8 absolute top-4 left-6"/>
         <a href="/magangdash" class="block py-2 px-4 rounded hover:bg-white/10">Dashboard</a>
+          <a href="/magang/password" class="block py-2 px-4 rounded hover:bg-white/10">Pengaturan Akun</a>
         <a href="/magang/pengumuman" class="block py-2 px-4 rounded hover:bg-white/10">Pengumuman</a>
         <a href="/magang/task" class="block py-2 px-4 rounded hover:bg-white/10">Lihat Daftar Tugas</a>
+        <a href="/magang/team/projek" class="block py-2 px-4 rounded hover:bg-white/10">Lihat Daftar Projek</a>
         <a href="/logout" class="absolute bottom-0 size-16 block py-2 px-4 rounded hover:bg-white/10">
           Keluar
         </a>
@@ -41,54 +43,85 @@
 
     <!-- Main Content -->
     <div class="flex-1 p-20 overflow-auto">
-      <h1 class="text-white text-3xl font-bold mb-6 leading-tight">Evaluasi<br>Kinerja Peserta Magang</h1>
+    <h1 class="text-white text-3xl font-bold mb-6 leading-tight">Detail Tugas</h1>
 
-        <div class=" p-8 space-y-6 max-w-xl">
-            
-                {{-- <div>
-                    <label for="judul" class="block text-white font-semibold mb-2">Nama : {{$data->user->name}}</label>
-                    
-                </div> --}}
-                <div>
-                    <label for="kelas" class="block text-white font-semibold mb-2">Nama Task: {{$data->judul}}</label>
-                </div>
-                <div>
-                    <label for="kelas" class="block text-white font-semibold mb-2">Deskripsi: </label>
-                    <label for="kelas" class="block text-white mb-2">{{$data->deskripsi}}</label>
-                </div>
-                <div>
-                    <label for="kelas" class="block text-white font-semibold mb-2">Tenggat: {{$data->tenggat}}</label>
-                </div>
-                <div>
-                    <label for="kelas" class="block text-white font-semibold mb-2">Kelas: {{$data->kelas->nama_kelas}}</label>
-                </div>
-                {{-- <div>
-                    <label for="kelas" class="block text-white font-semibold mb-2">Tautan:</label>
-                    <label for="kelas" class="block text-white mb-2">{{$data->pengumpulan->tautan}}</label>
-                </div> --}}
-            
-    </div>
-      
+    {{-- Mendapatkan data submission tunggal (jika ada) --}}
+    @php
+        $submission = $data->pengumpulan->first();
+    @endphp
 
-    <form action="{{ route('task.submit', ['task' => $data->id]) }}" method="post" class=" p-8 space-y-6 max-w-xl ">
+    {{-- Kontainer Utama untuk Detail Tugas dan Formulir Pengumpulan --}}
+    <div class="w-full p-8 space-y-6 bg-white text-black shadow-lg rounded-xl">
         
-        
-        @csrf
-        <input type="hidden" name="user_id" value="{{ Auth::id() }}">
-<input type="hidden" name="task_id" value="{{ $data->id }}">
-
+        {{-- Bagian Detail Tugas --}}
         <div>
-            <label for="tautan" class="block text-white font-semibold mb-2">Tautan:</label>
-            <textarea id="tautan" name="tautan" rows="6" required
-            class="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-400 resize-y"></textarea>
+            <p class="font-semibold mb-2">Nama Task: {{$data->judul}}</p>
         </div>
-        <div class="flex justify-end absolute right-20 bottom-12">
-            <button type="submit"
-            class="bg-pink-400 hover:bg-pink-500 text-white font-semibold py-2 px-8 rounded-full shadow-md transition duration-200">
-            Simpan
-            </button>
+        <div>
+            <p class="font-semibold mb-2">Deskripsi:</p>
+            <p class="mb-2">{{$data->deskripsi}}</p>
         </div>
-    </form>
+        <div>
+            <p class="font-semibold mb-2">Tenggat: {{$data->tenggat}}</p>
+        </div>
+        <div>
+            <p class="font-semibold mb-2">Kelas: {{$data->kelas->nama_kelas}}</p>
+        </div>
+        
+        {{-- BAGIAN MENAMPILKAN TAUTAN PENGUMPULAN --}}
+        @if ($submission)
+            {{-- Menampilkan Tautan yang Dikumpulkan --}}
+            <div>
+                <p class="font-bold mb-2 text-pink-500">Tautan yang Sudah Dikumpulkan:</p>
+                <p class="mb-2 break-words text-blue-600 hover:text-blue-800 underline">
+                    <a href="{{ $submission->tautan }}" target="_blank">{{ $submission->tautan }}</a>
+                </p>
+            </div>
+            
+            {{-- MENAMPILKAN EVALUASI MENTOR (Permintaan Anda) --}}
+            @if ($submission->evaluasi)
+            <div class="pt-4">
+                <h3 class="font-bold text-lg mb-2 text-pink-500">Hasil Evaluasi Mentor:</h3>
+                <div class="p-4 bg-gray-100 rounded-lg border border-gray-200">
+                    {{-- whitespace-pre-wrap agar baris baru/enter di database tetap terbaca --}}
+                    <p class="whitespace-pre-wrap">{{ $submission->evaluasi }}</p>
+                </div>
+            </div>
+            @else
+            <div class="pt-4">
+                <p class="font-semibold text-orange-500">Tautan sudah dikumpulkan, namun evaluasi mentor belum tersedia.</p>
+            </div>
+            @endif
+        
+        <hr class="border-gray-300 my-4">
+         @else
+            <div>
+                <p class="font-semibold mb-2 text-red-500">Belum ada tautan yang dikumpulkan.</p>
+            </div>
+        @endif
+
+        {{-- Formulir Pengumpulan Tautan --}}
+        <form action="{{ route('task.submit', ['task' => $data->id]) }}" method="post" class="space-y-6">
+            @csrf
+            <input type="hidden" name="user_id" value="{{ Auth::id() }}">
+            <input type="hidden" name="task_id" value="{{ $data->id }}">
+
+            <div>
+                <label for="tautan" class="block font-semibold mb-2">Tautan:</label>
+                {{-- Mengisi textarea dengan tautan lama/yang sudah ada --}}
+                <textarea id="tautan" name="tautan" rows="6" required
+                class="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-400 resize-y">{{ $submission->tautan ?? old('tautan') }}</textarea>
+            </div>
+            <div class="flex justify-end">
+                <button type="submit"
+                class="bg-pink-400 hover:bg-pink-500 text-white font-semibold py-2 px-8 rounded-full shadow-md transition duration-200">
+                Simpan
+                </button>
+            </div>
+        </form>
+        
+    </div>
+</div>
 
     </div>
   </div>

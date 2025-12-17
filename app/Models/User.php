@@ -51,7 +51,10 @@ class User extends Authenticatable
         return $this->belongsTo(Kelas::class);
     }
     
-
+    public function projek()
+    {
+        return $this->hasMany(Projek::class);
+    }
     
     public function divisi()
     {

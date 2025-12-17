@@ -12,31 +12,34 @@
   <div x-data="{ open: false }" class="flex w-full">
 
     <!-- Sidebar -->
-    <aside :class="open ? 'w-64' : 'w-16'" class="bg-[#1578AE] transition-all duration-300 flex flex-col items-center relative text-white py-4">
-      <!-- Toggle Button -->
-      <button @click="open = !open" class="focus:outline-none">
-        <img x-show="!open" x-cloak src="{{ asset('img/Sidebar(wht).png') }}" alt="Open Sidebar" class="h-6 w-6" />
-        <svg x-show="open" x-cloak xmlns="http://www.w3.org/2000/svg"
-             class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-             stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M15 19l-7-7 7-7" />
-        </svg>
-      </button>
-
-      <!-- Logo -->
-      {{-- <img src="img/logo.png" alt="Logo" class="h-8 w-8 mb-6" x-show="open" x-cloak /> --}}
+    <div :class="open ? 'bg-white w-64' : 'bg-[#1578AE] w-16'" class="text-pink-500 transition-all duration-300 flex flex-col items-center relative">
+      <!-- Tombol Toggle -->
+      <div class="w-full flex justify-end p-4">
+        <button @click="open = !open" class="focus:outline-none">
+          <img x-show="!open" src="{{ asset('img/Sidebar(wht).png') }}" alt="Sidebar Close Icon" class="h-6 w-6 mx-auto" />
+          <!-- Ikon saat sidebar BUKA -->
+          <svg x-show="open" xmlns="http://www.w3.org/2000/svg"
+               class="h-8 w-8 mx-auto" fill="none" viewBox="0 0 24 24"
+               stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+      </div>
 
       <!-- Menu -->
-      <nav x-show="open" x-cloak class="flex flex-col space-y-2 w-full px-4 text-sm">
-        <img src="{{ asset('img/logo.png') }}" alt="logo" class="h-8 w-8 absolute top-4 left-6"/>
-        <a href="/mentordash" class="py-2 px-4 rounded hover:bg-white/10">Dashboard</a>
-        <a href="/maganglist" class="py-2 px-4 rounded hover:bg-white/10">Daftar Anak Magang</a>
-        <a href="/mentor/pengumuman" class="py-2 px-4 rounded hover:bg-white/10">Pengumuman</a>
-        <a href="/mentor/task" class="py-2 px-4 rounded hover:bg-white/10">Lihat Daftar Tugas</a>
-        <a href="/logout" class="mt-auto py-2 px-4 rounded hover:bg-white/10">Keluar</a>
+      <nav x-show="open" x-transition class="flex flex-col w-full px-4 space-y-2">
+        <img src="{{ asset('img/logo.png') }}" alt="logo" class="h-8 w-8 absolute top-4 left-6" />
+        <a href="/mentordash" class="block py-2 px-4 rounded hover:bg-white/10">Dashboard</a>
+        <a href="/maganglist" class="block py-2 px-4 rounded hover:bg-white/10">Daftar Anak Magang</a>
+        <a href="/mentor/pengumuman" class="block py-2 px-4 rounded hover:bg-white/10">Pengumuman</a>
+        <a href="/mentor/task" class="block py-2 px-4 rounded hover:bg-white/10">Lihat Daftar Tugas</a>
+        <a href="/mentor/team/projek" class="block py-2 px-4 rounded hover:bg-white/10">Lihat Daftar Projek</a>
+        <a href="/logout" class="absolute bottom-0 w-full block py-2 px-4 rounded hover:bg-white/10">
+          Keluar
+        </a>
       </nav>
-    </aside>
+    </div>
 
     <!-- Main Content -->
     <main class="flex-1 p-6 md:p-12 lg:p-20 text-white">

@@ -34,6 +34,7 @@
         <a href="/maganglist" class="block py-2 px-4 rounded hover:bg-white/10">Daftar Anak Magang</a>
         <a href="/mentor/pengumuman" class="block py-2 px-4 rounded hover:bg-white/10">Pengumuman</a>
         <a href="/mentor/task" class="block py-2 px-4 rounded hover:bg-white/10">Lihat Daftar Tugas</a>
+        <a href="/mentor/team/projek" class="block py-2 px-4 rounded hover:bg-white/10">Lihat Daftar Projek</a>
         <a href="/logout" class="absolute bottom-0 w-full block py-2 px-4 rounded hover:bg-white/10">
           Keluar
         </a>
@@ -50,7 +51,8 @@
             <tr>
               <th class="px-6 py-3 font-semibold border border-gray-200">Nama</th>
               <th class="px-6 py-3 font-semibold border border-gray-200">Email</th>
-              <th class="px-6 py-3 font-semibold border border-gray-200">Kelas</th>
+              <th class="px-6 py-3 font-semibold border border-gray-200">Divisi</th>
+              <th class="px-6 py-3 font-semibold border border-gray-200">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -60,6 +62,16 @@
               <td class="px-6 py-3 border border-gray-200">{{ $item->name }}</td>
               <td class="px-6 py-3 border border-gray-200">{{ $item->email }}</td>
               <td class="px-6 py-3 border border-gray-200">{{  $item->divisi?->kelas?->nama_kelas ?? '-'}}</td>
+              <td class="px-6 py-3 border border-gray-200">
+                 
+                <a href="#" class="bg-[#ff8800] text-white font-semibold px-4 py-1 rounded-full text-sm shadow-lg hover:bg-[#a85a00] mr-4">
+                  Edit
+                </a>
+                <a href="#" class="bg-[#ff0000] text-white font-semibold px-4 py-1 rounded-full text-sm shadow-lg hover:bg-[#8c0000]">
+                  Hapus
+                </a>
+            
+              </td>
             </tr>  
             @endforeach
             

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kelas;
 use App\Models\Pengumpulan;
 use App\Models\Task;
 use Illuminate\Http\Request;
@@ -14,7 +15,9 @@ class TaskController extends Controller
         return view('daftar_task')->with('data', $data);
     }
     public function create(){
-        return view('form_tambah_task');
+        $item = null;
+        $kelas = Kelas::all();
+        return view('form_tambah_task', compact('item', 'kelas'));
     }
     public function show($id) {
         $task = Task::with('pengumpulan')->findOrFail($id);
@@ -42,8 +45,49 @@ class TaskController extends Controller
 
         ];
         Task::create($data);
-        return redirect()->to('mentor/task')->with('success','Pengumuman Berhasil Ditambahkan');
+        return redirect()->route('task.index')->with('success','Tugas Berhasil Ditambahkan!');
     }
+
+    public function edit($id)
+    {
+        $item = Task::findOrFail($id);
+        $kelas = Kelas::all();
+
+        return view('form_tambah_task', compact('item', 'kelas'));
+    }
+
+    
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'judul' => 'required|string|max:255',
+            'deskripsi' => 'required|string',
+            'tenggat' => 'required|date',
+            'kelas_id' => 'required|exists:kelas,id',
+        ]);
+
+        $item = Task::findOrFail($id);
+
+        $item->update([
+            'judul' => $request->judul,
+            'deskripsi' => $request->deskripsi,
+            'tenggat' => $request->tenggat,
+            'kelas_id' => $request->kelas_id,
+        ]);
+        
+        return redirect()->route('task.index')->with('success', 'Tugas berhasil diperbarui!');
+    }
+
+   
+    public function destroy($id)
+    {
+        $item = Task::findOrFail($id);
+        
+        $item->delete();
+
+        return redirect()->route('task.index')->with('success', 'Tugas berhasil dihapus!');
+    }
+
 
     public function submitTugas(Request $request, Task $task)
 {
@@ -73,5 +117,5 @@ class TaskController extends Controller
     return redirect()->route('task.magang')->with('success', 'Tugas berhasil dikumpulkan!');
 }
 
-
+    
 }

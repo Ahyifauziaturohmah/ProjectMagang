@@ -24,4 +24,8 @@ class Task extends Model
     public function divisi() {
         return $this->belongsTo(Divisi::class);
     }
+    public function projek()
+{
+    return $this->belongsTo(Projek::class, 'projek_id');
+}
 }

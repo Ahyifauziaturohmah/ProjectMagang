@@ -34,6 +34,7 @@
         <a href="/maganglist" class="block py-2 px-4 rounded hover:bg-white/10">Daftar Anak Magang</a>
         <a href="/mentor/pengumuman" class="block py-2 px-4 rounded hover:bg-white/10">Pengumuman</a>
         <a href="/mentor/task" class="block py-2 px-4 rounded hover:bg-white/10">Lihat Daftar Tugas</a>
+        <a href="/mentor/team/projek" class="block py-2 px-4 rounded hover:bg-white/10">Lihat Daftar Projek</a>
         <a href="/logout" class="absolute bottom-0 w-full block py-2 px-4 rounded hover:bg-white/10">
           Keluar
         </a>
@@ -44,34 +45,51 @@
     <div class="flex-1 p-20 overflow-auto">
       <h1 class="text-white text-3xl font-bold mb-6 leading-tight">Evaluasi<br>Kinerja Peserta Magang</h1>
 
-        <div class=" p-8 space-y-6 max-w-xl">
+        <div class="w-full p-8 space-y-6 bg-white text-black shadow-lg rounded-xl">
             
                 <div>
-                    <label for="judul" class="block text-white font-semibold mb-2">Nama : {{$data->user->name}}</label>
+                    <label for="judul" class=" font-semibold mb-2">Peserta Magang : {{$data->user->name}}</label>
                     
                 </div>
                 <div>
-                    <label for="kelas" class="block text-white font-semibold mb-2">Nama Task: {{$data->task->judul}}</label>
+                    <label for="kelas" class=" font-semibold mb-2">Nama Task: {{$data->task->judul}}</label>
                 </div>
                 <div>
-                    <label for="kelas" class="block text-white font-semibold mb-2">Deskripsi: </label>
-                    <label for="kelas" class="block text-white mb-2">{{$data->task->deskripsi}}</label>
+                    <label for="kelas" class=" font-semibold mb-2">Deskripsi: </label>
+                    <label for="kelas" class=" mb-2">{{$data->task->deskripsi}}</label>
                 </div>
                 <div>
-                    <label for="kelas" class="block text-white font-semibold mb-2">Tenggat: {{$data->task->tenggat}}</label>
+                    <label for="kelas" class=" font-semibold mb-2">Tenggat: {{$data->task->tenggat}}</label>
                 </div>
                 <div>
-                    <label for="kelas" class="block text-white font-semibold mb-2">Kelas: {{$data->task->kelas->nama_kelas}}</label>
+                    <label for="kelas" class=" font-semibold mb-2">Divisi: {{$data->task->kelas->nama_kelas}}</label>
                 </div>
                 <div>
-                    <label for="kelas" class="block text-white font-semibold mb-2">Tautan:</label>
-                    <label for="kelas" class="block text-white mb-2">{{$data->tautan}}</label>
+                    <label for="kelas" class=" font-semibold mb-2">Tautan:</label>
+                    <label for="kelas" class=" mb-2">{{$data->tautan}}</label>
                 </div>
+                <hr class="border-gray-400 my-4">
+
+                <form action="{{ route('task.detail.pengumpulan.store', ['id' => $data->id]) }}" method="post" class="space-y-6">
+                    @csrf
+                    <div>
+                        <label for="evaluasi" class="block font-semibold mb-2">Evaluasi:</label>
+                        <textarea id="evaluasi" name="evaluasi" rows="6" required
+                        {{-- KELAS INI MEMBUAT TEXTAREA TERLIHAT JELAS: border-gray-300 --}}
+                        class="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-400 resize-y"></textarea>
+                    </div>
+                    <div class="flex justify-end">
+                        <button type="submit"
+                        class="bg-pink-400 hover:bg-pink-500 text-white font-semibold py-2 px-8 rounded-full shadow-md transition duration-200">
+                        Simpan
+                        </button>
+                    </div>
+                </form>
             
-    </div>
+        </div>
       
 
-    <form action="{{ route('task.detail.pengumpulan.store', ['id' => $data->id]) }}" method="post" class=" p-8 space-y-6 max-w-xl ">
+    {{-- <form action="{{ route('task.detail.pengumpulan.store', ['id' => $data->id]) }}" method="post" class=" p-8 space-y-6 max-w-xl ">
         
         
         @csrf
@@ -86,7 +104,7 @@
             Simpan
             </button>
         </div>
-    </form>
+    </form> --}}
 
     </div>
   </div>
