@@ -9,8 +9,8 @@
   <body class="bg-white overflow-hidden"> <!-- Ini kunci no-scroll -->
 
     <!-- Navbar -->
-    <nav class="bg-white shadow px-6 py-3 fixed top-0 left-0 w-full z-10">
-      <div class="max-w-7xl mx-auto flex items-center">
+    <nav class="bg-white shadow px-2 py-3 fixed top-0 left-0 w-full z-10">
+      <div class="max-w-9xl mx-auto flex items-center">
         <a href="https://winnicode.com/" target="_blank" class="block">
           <img src="img/WinniCode.png" alt="logo" class="h-7" />
         </a>

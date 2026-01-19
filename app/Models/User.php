@@ -61,6 +61,9 @@ class User extends Authenticatable
         return $this->hasOne(Divisi::class, 'user_id');
     }
 
-
+public function contact()
+    {
+        return $this->hasOne(UserContact::class, 'user_id');
+    }
 
 }

@@ -9,15 +9,26 @@
 </head>
 <body class="bg-[#1B7BA6] min-h-screen flex flex-col">
 
+  @if (session('success'))
+    <div x-data="{ show: true }" 
+      x-show="show" 
+      x-init="setTimeout(() => show = false, 3000)" 
+      x-transition:leave.duration.500ms
+      class="fixed top-5 right-5 z-50 p-4 rounded-lg shadow-xl text-white font-semibold flex items-center space-x-2 bg-pink-500 border border-pink-400">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <p>{{ session('success') }}</p>
+    </div>
+  @endif
+
   <div x-data="{ open: false }" class="flex flex-1">
 
     <!-- Sidebar -->
     <div :class="open ? 'bg-white w-64' : 'bg-[#1578AE] w-16'" class="text-pink-500 transition-all duration-300 flex flex-col items-center relative">
-      <!-- Tombol Toggle -->
       <div class="w-full flex justify-end p-4">
         <button @click="open = !open" class="focus:outline-none">
           <img x-show="!open" src="{{ asset('img/Sidebar(wht).png') }}" alt="Sidebar Close Icon" class="h-6 w-6 mx-auto" />
-          <!-- Ikon saat sidebar BUKA -->
           <svg x-show="open" xmlns="http://www.w3.org/2000/svg"
                class="h-8 w-8 mx-auto" fill="none" viewBox="0 0 24 24"
                stroke="currentColor">
@@ -52,50 +63,52 @@
               <th class="px-6 py-3 font-semibold border border-gray-200">Nama</th>
               <th class="px-6 py-3 font-semibold border border-gray-200">Email</th>
               <th class="px-6 py-3 font-semibold border border-gray-200">Divisi</th>
+              <th class="px-6 py-3 font-semibold border border-gray-200">Kontak</th>
               <th class="px-6 py-3 font-semibold border border-gray-200">Action</th>
             </tr>
           </thead>
           <tbody>
-            <!-- Ulangi baris ini sesuai jumlah data -->
             @foreach ($data as $item)
             <tr class="bg-white">
               <td class="px-6 py-3 border border-gray-200">{{ $item->name }}</td>
               <td class="px-6 py-3 border border-gray-200">{{ $item->email }}</td>
               <td class="px-6 py-3 border border-gray-200">{{  $item->divisi?->kelas?->nama_kelas ?? '-'}}</td>
+              <td class="px-6 py-3 border border-gray-200">{{ $item->contact?->kontak }}</td>
               <td class="px-6 py-3 border border-gray-200">
                  
-                <a href="#" class="bg-[#ff8800] text-white font-semibold px-4 py-1 rounded-full text-sm shadow-lg hover:bg-[#a85a00] mr-4">
-                  Edit
+                <a href="{{ route('magang.edit', $item->id) }}" 
+                  class="bg-[#ff8800] text-white font-semibold px-4 py-1 rounded-full text-sm shadow-lg hover:bg-[#a85a00] mr-4">
+                   Edit
                 </a>
-                <a href="#" class="bg-[#ff0000] text-white font-semibold px-4 py-1 rounded-full text-sm shadow-lg hover:bg-[#8c0000]">
-                  Hapus
-                </a>
+        
+        <form action="{{ route('magang.destroy', $item->id) }}" method="POST" class="inline">
+            @csrf
+            @method('DELETE')
+            <button type="submit" 
+                    class="bg-[#ff0000] text-white font-semibold px-4 py-1 rounded-full text-sm shadow-lg hover:bg-[#8c0000]"
+                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                Hapus
+            </button>
+        </form>
             
               </td>
             </tr>  
             @endforeach
-            
-            <!-- Tambahkan baris lain sesuai data -->
           </tbody>
         </table>
       </div>
 
-      <div class="flex justify-end mt-6">
-        <a href="/formmaganglist"
-        class="bg-pink-400 hover:bg-pink-500 text-white font-semibold py-2 px-6 rounded-full shadow-md transition duration-200">
-          Tambah Peserta</a>
-        
-      </div>
-      <div class="flex justify-end mt-6">
-        <a href="/form/divisi"
-        class="bg-pink-400 hover:bg-pink-500 text-white font-semibold py-2 px-6 rounded-full shadow-md transition duration-200">
-          Tambah Divisi</a>
-        
-      </div>
+      <button class="mt-10 bg-pink-400 text-white font-semibold px-8 py-2.5 rounded-full hover:opacity-90">
+        <a href="/formmaganglist">
+            Tambah Peserta</a>
+      </button>
+      <button class="mt-10 bg-pink-400 text-white font-semibold px-8 py-2.5 rounded-full hover:opacity-90">
+        <a href="/form/divisi">
+            Atur Divisi</a>
+      </button>
+
     </div>
   </div>
-
-  
 
 </body>
 </html>

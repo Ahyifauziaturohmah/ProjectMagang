@@ -9,6 +9,18 @@
 </head>
 <body class="bg-[#1B7BA6] min-h-screen flex flex-col">
 
+  @if (session('success'))
+        <div x-data="{ show: true }" 
+            x-show="show" 
+            x-init="setTimeout(() => show = false, 3000)" 
+            x-transition:leave.duration.500ms
+            class="fixed top-5 right-5 z-50 p-4 rounded-lg shadow-xl text-white font-semibold flex items-center space-x-2 bg-pink-500 border border-pink-400">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <p>{{ session('success') }}</p>
+        </div>
+    @endif
   <div x-data="{ open: false }" class="flex flex-1">
 
     <!-- Sidebar -->
@@ -39,23 +51,29 @@
     </div>
 
     <!-- Main Content -->
-    <div class="flex-1 p-10 overflow-auto">
+    <div class="flex-1 p-10 overflow-auto h-screen">
       <h1 class="text-white text-3xl font-bold mb-6 leading-tight">Pengumuman!</h1>
 
       <!-- Container Scroll -->
-      <div class="h-[500px] overflow-y-auto space-y-10 pr-2">
+      <div class="overflow-y-auto space-y-10 pr-2">
         @foreach ($data as $item)
           <div class="p-4 rounded-lg shadow-md bg-white text-black">
             <h2 class=" text-xl font-semibold mb-2">{{ $item->judul }}</h2>
             <h4 class=" font-semibold mb-2">Divisi: {{ $item->kelas->nama_kelas }}</h4>
             <p class=" text-sm leading-relaxed">{{ $item->isi }}</p>
             <div class="py-8 px-0 ">
-              <a href="#" class="bg-[#ff8800] text-white font-semibold px-6 py-3 rounded-full shadow-lg hover:bg-[#a85a00] mr-4">
+              <a href="{{ route('pengumuman.edit', $item->id) }}" class="bg-[#ff8800] text-white font-semibold px-6 py-3 rounded-full shadow-lg hover:bg-[#a85a00] mr-4">
                 Edit
               </a>
-              <a href="#" class="bg-[#ff0000] text-white font-semibold px-6 py-3 rounded-full shadow-lg hover:bg-[#8c0000]">
-                Hapus
-              </a>
+              <form action="{{ route('pengumuman.destroy', $item->id) }}" method="POST" class="inline">
+                  @csrf
+                  @method('DELETE')
+                  <button type="submit" 
+                          class="bg-[#ff0000] text-white font-semibold px-6 py-3 rounded-full shadow-lg hover:bg-[#8c0000]"
+                          onclick="return confirm('Yakin ingin menghapus pengumuman ini?')">
+                      Hapus
+                  </button>
+              </form>
             </div>
               
           </div>

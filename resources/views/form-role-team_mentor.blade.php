@@ -45,6 +45,7 @@
     <div class="flex-1 p-20 overflow-auto">
       <form method="POST" action={{route('mentor.team.role.store', ['id'=> $projek->id ])}} class="bg-white w-full max-w-3xl rounded-2xl p-8 space-y-8">
         @csrf
+<input type="hidden" name="projek_id" value="{{ $projek->id }}">
         <h1 class="text-2xl font-semibold text-[#1c7cab]">
           Atur Role Anggota
         </h1>
@@ -59,17 +60,16 @@
         </span>
 
         <select
-          name="user_id"
+          name="members[0][user_id]"
           class="col-span-2 border rounded-lg px-3 py-2 text-sm bg-gray-50">
           <option value="">Pilih Anggota</option>
           @foreach($users as $user)
             <option value="{{ $user->id }}">{{ $user->name }}</option>
           @endforeach
         </select>
-<input type="hidden" name="projek_id" value="{{ $projek->id }}">
 
         <select
-          name="role"
+          name="members[0][role]"
           class="col-span-2 border rounded-lg px-3 py-2 text-sm bg-gray-50">
           <option value="">-- Pilih Role --</option>
         <option value="leader">Leader</option>
@@ -110,7 +110,6 @@
  </div>
   <!-- SCRIPT -->
   <script>
-    // Ambil data users dari Laravel
     const dbUsers = @json($users);
     let roleIndex = 1;
 
@@ -120,7 +119,6 @@
         const item = document.createElement('div');
         item.className = 'grid grid-cols-5 gap-4 items-center border rounded-xl p-4';
 
-        // Buat daftar option user secara dinamis dari database
         let userOptions = '<option value="">Pilih Anggota</option>';
         dbUsers.forEach(user => {
             userOptions += `<option value="${user.id}">${user.name}</option>`;
@@ -132,13 +130,13 @@
             </span>
 
             <select
-                name="members[${roleIndex}][user_id]"
+                name="members[` + roleIndex + `][user_id]"
                 class="col-span-2 border rounded-lg px-3 py-2 text-sm bg-gray-50">
                 ${userOptions}
             </select>
 
             <select
-                name="members[${roleIndex}][role]"
+                name="members[` + roleIndex + `][role]"
                 class="col-span-2 border rounded-lg px-3 py-2 text-sm bg-gray-50">
                 <option value="">-- Pilih Role --</option>
                 <option value="leader">Leader</option>

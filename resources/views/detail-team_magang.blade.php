@@ -9,6 +9,19 @@
 </head>
 <body class="bg-[#1B7BA6] min-h-screen flex flex-col">
 
+    @if (session('success'))
+        <div x-data="{ show: true }" 
+            x-show="show" 
+            x-init="setTimeout(() => show = false, 3000)" 
+            x-transition:leave.duration.500ms
+            class="fixed top-5 right-5 z-50 p-4 rounded-lg shadow-xl text-white font-semibold flex items-center space-x-2 bg-pink-500 border border-pink-400">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <p>{{ session('success') }}</p>
+        </div>
+    @endif
+
   <div x-data="{ open: false }" class="flex flex-1">
 
     <!-- Sidebar -->
@@ -86,7 +99,7 @@
                             value="approved"
                             onchange="this.form.submit()"
                             {{ in_array($task->submission->status ?? '', ['submitted', 'approved']) ? 'checked' : '' }} 
-                            class="w-5 h-5 text-green-500 rounded cursor-pointer transition-all duration-300">
+                            class="w-5 h-5 text-green-500 rounded cursor-not-allowed transition-all duration-300">
                     </form>
                 @else
                     <input type="checkbox" 

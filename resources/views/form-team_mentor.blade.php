@@ -43,64 +43,62 @@
 
     <!-- Main Content -->
     <div class="flex-1 p-20 overflow-auto">
-        <div class="w-full max-w-2xl bg-white rounded-2xl p-8 shadow-lg">
-            <h1 class="text-2xl font-semibold mb-8 text-[#1c7cab]">
-            Tambahkan Projek Baru
-            </h1>
+    <div class="w-full max-w-2xl bg-white rounded-2xl p-8 shadow-lg">
+        <h1 class="text-2xl font-semibold mb-8 text-[#1c7cab]">
+            {{ isset($projek) ? 'Edit Projek' : 'Tambahkan Projek Baru' }}
+        </h1>
 
-            <form method="POST" action="{{ route('projek.store')}}" class="space-y-6">
+        <form method="POST" 
+              action="{{ isset($projek) ? url('/mentor/update/team/projek/'.$projek->id) : route('projek.store') }}" 
+              class="space-y-6">
+            
             @csrf
-              <!-- Judul -->
+            @if(isset($projek))
+                @method('PUT')
+            @endif
+
             <div>
-                <label class="block text-sm font-medium mb-2">
-                Nama Projek:
-                </label>
+                <label class="block text-sm font-medium mb-2">Nama Projek:</label>
                 <input name="nama"
-                type="text"
-                placeholder="Masukkan judul tugas"
-                class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                />
+                    type="text"
+                    value="{{ old('nama', $projek->nama ?? '') }}"
+                    placeholder="Masukkan judul tugas"
+                    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    required />
             </div>
 
-            <!-- Deskripsi -->
             <div>
-                <label class="block text-sm font-medium mb-2">
-                Deskripsi:
-                </label>
+                <label class="block text-sm font-medium mb-2">Deskripsi:</label>
                 <textarea name="deskripsi"
-                rows="4"
-                placeholder="Deskripsi tugas"
-                class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                ></textarea>
+                    rows="4"
+                    placeholder="Deskripsi tugas"
+                    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    required>{{ old('deskripsi', $projek->deskripsi ?? '') }}</textarea>
             </div>
 
-            <!-- Enum Divisi -->
             <div>
-                <label class="block text-sm font-medium mb-2">
-                Pilih Divisi:
-                </label>
+                <label class="block text-sm font-medium mb-2">Pilih Divisi:</label>
                 <select name="kelas_id"
-                class="w-full border border-gray-300 rounded-lg px-4 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400"
-                >
-                @foreach($kelas as $k)
-                  <option value="{{ $k->id }}">{{ $k->nama_kelas }}</option>
-                @endforeach
+                    class="w-full border border-gray-300 rounded-lg px-4 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    required>
+                    <option value="">Pilih Divisi</option>
+                    @foreach($kelas as $k)
+                        <option value="{{ $k->id }}" 
+                            {{ (old('kelas_id', $projek->kelas_id ?? '') == $k->id) ? 'selected' : '' }}>
+                            {{ $k->nama_kelas }}
+                        </option>
+                    @endforeach
                 </select>
             </div>
 
-            
-
-            <!-- Button -->
             <div class="flex justify-end pt-6">
-                <button
-                type="submit"
-                class="bg-pink-400 text-white px-8 py-2 rounded-full hover:opacity-90"
-                >
-                Simpan
+                <button type="submit" class="bg-pink-400 text-white px-8 py-2 rounded-full hover:opacity-90">
+                    {{ isset($projek) ? 'Update Projek' : 'Simpan' }}
                 </button>
             </div>
-            </form>
-        </div>
+        </form>
+    </div>
+</div>
 
     
 </body>

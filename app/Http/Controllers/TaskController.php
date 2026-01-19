@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\WhatsappHelper;
 use App\Models\Kelas;
 use App\Models\Pengumpulan;
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -35,17 +37,36 @@ class TaskController extends Controller
         return view('list_task_magang')->with('data', $data);
     }
     
-
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $data = [
-            'judul'=>$request->judul,
-            'deskripsi'=>$request->deskripsi,
-            'tenggat'=>$request->tenggat,
-            'kelas_id'=>$request->kelas_id,
-
+            'judul' => $request->judul,
+            'deskripsi' => $request->deskripsi,
+            'tenggat' => $request->tenggat,
+            'kelas_id' => $request->kelas_id,
         ];
-        Task::create($data);
-        return redirect()->route('task.index')->with('success','Tugas Berhasil Ditambahkan!');
+        
+        $task = Task::create($data);
+
+        $penerima = User::whereHas('divisi', function($query) use ($request) {
+            $query->where('kelas_id', $request->kelas_id);
+        })->with('contact')->get();
+
+        foreach ($penerima as $user) {
+            $nomorWa = $user->contact?->kontak;
+            if ($nomorWa) {
+                $pesan = "*TUGAS BARU*\n\n" .
+                         "Halo *{$user->name}*,\n" .
+                         "Ada tugas baru yang harus dikerjakan:\n\n" .
+                         "*{$request->judul}*\n" .
+                         "Tenggat: " . date('d M Y, H:i', strtotime($request->tenggat)) . "\n\n" .
+                         "Semangat mengerjakannya!";
+                
+                WhatsappHelper::send($nomorWa, $pesan);
+            }
+        }
+
+        return redirect()->route('task.index')->with('success', 'Tugas Berhasil Ditambahkan');
     }
 
     public function edit($id)
@@ -55,7 +76,6 @@ class TaskController extends Controller
 
         return view('form_tambah_task', compact('item', 'kelas'));
     }
-
     
     public function update(Request $request, $id)
     {
@@ -90,32 +110,35 @@ class TaskController extends Controller
 
 
     public function submitTugas(Request $request, Task $task)
-{
-    $request->validate([
-        'tautan' => 'required|string|max:2048',
-    ]);
-
-    $tautan = $request->input('tautan');
-
-    $existing = Pengumpulan::where('user_id', Auth::id())
-                           ->where('task_id', $task->id)
-                           ->first();
-
-    if ($existing) {
-        $existing->update([
-            'tautan' => $tautan,
+    {
+        $request->validate([
+            'tautan' => 'required|string|max:2048',
         ]);
-    } else {
-        Pengumpulan::create([
-            'user_id' => Auth::id(),
-            'task_id' => $task->id,
-            'tautan' => $tautan,
-            'evaluasi' => '',
-        ]);
+
+        $user = Auth::user();
+        $tautan = $request->input('tautan');
+
+        $existing = Pengumpulan::updateOrCreate(
+            ['user_id' => $user->id, 'task_id' => $task->id],
+            ['tautan' => $tautan, 'evaluasi' => '']
+        );
+
+        $mentor = User::where('role', 'mentor')->with('contact')->first();
+
+        if ($mentor && $mentor->contact?->kontak) {
+            $pesan = "*PENGUMPULAN TUGAS*\n\n" .
+                    "Halo Coach *{$mentor->name}*,\n" .
+                    "Ada tugas baru yang dikumpulkan oleh anak magang.\n\n" .
+                    "Nama: *{$user->name}*\n" .
+                    "Tugas: *{$task->judul}*\n" .
+                    "Link: {$tautan}\n\n" .
+                    "Silakan dicek di dashboard mentor.";
+
+            WhatsappHelper::send($mentor->contact->kontak, $pesan);
+        }
+
+        return redirect()->route('task.magang')->with('success', 'Tugas berhasil dikumpulkan!');
     }
-
-    return redirect()->route('task.magang')->with('success', 'Tugas berhasil dikumpulkan!');
-}
 
     
 }

@@ -29,11 +29,9 @@
     
     <!-- Sidebar -->
     <div :class="open ? 'bg-white w-64' : 'bg-[#1578AE] w-16'" class="text-pink-500 transition-all duration-300 flex flex-col items-center relative">
-      <!-- Tombol Toggle -->
       <div class="w-full flex justify-end p-4">
         <button @click="open = !open" class="focus:outline-none">
           <img x-show="!open" src="{{ asset('img/Sidebar(wht).png') }}" alt="Sidebar Close Icon" class="h-6 w-6 mx-auto" />
-          <!-- Ikon saat sidebar BUKA -->
           <svg x-show="open" xmlns="http://www.w3.org/2000/svg"
                class="h-8 w-8 mx-auto" fill="none" viewBox="0 0 24 24"
                stroke="currentColor">
@@ -73,7 +71,6 @@
             </tr>
           </thead>
           <tbody>
-            <!-- Ulangi baris ini sesuai jumlah data -->
             
             @foreach ($data as $item)
             
@@ -105,17 +102,15 @@
               </td>
             </tr>  
             @endforeach
-            
-            <!-- Tambahkan baris lain sesuai data -->
           </tbody>
         </table>
       </div>
 
-      <div class="flex justify-end mt-6">
-        <a href="/tambah/task"
-        class="bg-pink-400 hover:bg-pink-500 text-white font-semibold py-2 px-6 rounded-full shadow-md transition duration-200">
-          Tambah </a>
-      </div>
+      <button class="mt-10 bg-pink-400 text-white font-semibold px-8 py-2.5 rounded-full hover:opacity-90">
+        <a href="/tambah/task">
+            Tambah</a>
+      </button>
+
     </div>
   </div>
 </body>

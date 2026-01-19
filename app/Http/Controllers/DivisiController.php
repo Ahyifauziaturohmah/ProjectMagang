@@ -30,8 +30,7 @@ class DivisiController extends Controller
             'user_id' => $request->user_id,
             'kelas_id' => $request->kelas_id,
         ]);
-
-        return redirect()->back()->with('success', 'Divisi berhasil diatur!');
+        return redirect()->to('maganglist')->with('success','Divisi berhasil diatur!');
     }
 }
 

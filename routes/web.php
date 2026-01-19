@@ -37,11 +37,26 @@ Route::middleware(['auth', 'mentor'])->group(function () {
     Route::get('/formmaganglist', [userController::class, 'create']);
     Route::get('/maganglist', [userController::class, 'index']);
     Route::post('/formmaganglist', [userController::class, 'store']);
+    // Route untuk Edit (Menampilkan Form)
+Route::get('/magang/edit/{id}', [userController::class, 'edit'])->name('magang.edit');
+
+// Route untuk Proses Update (Action Form)
+Route::put('/magang/update/{id}', [userController::class, 'update'])->name('magang.update');
+
+// Route untuk Hapus
+Route::delete('/magang/delete/{id}', [userController::class, 'destroy'])->name('magang.destroy');
 
     // Pengumuman Management
     Route::get('/form/pengumuman', [PengumumanController::class, 'create']);
     Route::get('/mentor/pengumuman', [PengumumanController::class, 'index']);
     Route::post('/form/pengumuman', [PengumumanController::class, 'store']);
+    Route::get('/mentor/pengumuman/tambah', [PengumumanController::class, 'create'])->name('pengumuman.create');
+    Route::get('/mentor/pengumuman/{id}/edit', [PengumumanController::class, 'edit'])->name('pengumuman.edit');
+
+    // Eksekusi Data
+    Route::post('/mentor/pengumuman/store', [PengumumanController::class, 'store'])->name('pengumuman.store');
+    Route::put('/mentor/pengumuman/{id}/update', [PengumumanController::class, 'update'])->name('pengumuman.update');
+    Route::delete('/mentor/pengumuman/{id}', [PengumumanController::class, 'destroy'])->name('pengumuman.destroy');
 
     // Divisi Management
     Route::get('/form/divisi', [DivisiController::class, 'create']);
@@ -68,14 +83,22 @@ Route::middleware(['auth', 'mentor'])->group(function () {
     Route::get('/mentor/team/projek', [ProjekController::class, 'index']);
     Route::get('/mentor/form/team/projek', [ProjekController::class, 'create']);
     Route::post('/mentor/team/projek',[ProjekController::class, 'store'])->name('projek.store');
+    Route::get('/mentor/edit/team/projek/{id}', [ProjekController::class, 'edit']);
+    Route::put('/mentor/update/team/projek/{id}', [ProjekController::class, 'update']);
+    Route::delete('/mentor/delete/team/projek/{id}', [ProjekController::class, 'destroy']);
     Route::get('/mentor/detail/team/projek/{id}',[ProjekController::class, 'detail_projek']);
-    Route::get('/mentor/team/role/{projek}',[ProjekMemberController::class, 'create'])->name('mentor.team.role.create');
-    Route::get('/mentor/team/projek/{id}/add-task', [ProjekController::class, 'create_task_projek'])->name('mentor.projek.task.create');
-    Route::post('/mentor/team/projek/{id}/add-task', [ProjekController::class, 'store_task_projek'])->name('mentor.projek.task.store');
-    Route::get('/mentor/team/role/create/{id}', [ProjekController::class, 'create_role'])->name('mentor.team.role.create');
-    Route::post('/mentor/team/role/store/{id}', [ProjekController::class, 'store_role'])->name('mentor.team.role.store');
-    Route::patch('/mentor/task/{id}/status', [ProjekController::class, 'updateTaskStatus']) ->name('mentor.task.updateStatus');
-    Route::patch('/mentor/task/update/{id}', [ProjekController::class, 'updateTaskStatus'])->name('task.update');
+
+    Route::get('/mentor/team/projek/{id}/add-task', [ProjekTaskController::class, 'create'])->name('mentor.projek.task.create');
+    Route::post('/mentor/team/projek/{id}/add-task', [ProjekTaskController::class, 'store'])->name('mentor.projek.task.store');
+    Route::get('/mentor/task/{id}/edit', [ProjekTaskController::class, 'edit'])->name('mentor.task.edit');
+    Route::put('/mentor/task/{id}', [ProjekTaskController::class, 'update'])->name('mentor.task.update');
+    Route::delete('/mentor/task/{id}', [ProjekTaskController::class, 'destroy'])->name('mentor.task.destroy');
+    Route::patch('/mentor/task/{id}/status', [ProjekTaskController::class, 'updateTaskStatus']) ->name('mentor.task.updateStatus');
+    Route::patch('/mentor/task/update/{id}', [ProjekTaskController::class, 'updateTaskStatus'])->name('task.update');
+
+    Route::get('/mentor/team/role/create/{id}', [ProjekMemberController::class, 'create'])->name('mentor.team.role.create');
+    Route::post('/mentor/team/role/store/{id}', [ProjekMemberController::class, 'store'])->name('mentor.team.role.store');
+    Route::delete('/mentor/member/{id}', [ProjekMemberController::class, 'destroy'])->name('mentor.member.destroy');
  
 
 });
@@ -96,7 +119,7 @@ Route::middleware(['auth', 'magang'])->group(function () {
     Route::get('/magang/team/projek', [ProjekController::class, 'index_magang']);
     
     Route::get('/magang/detail/team/projek/{id}',[ProjekController::class, 'detail_projek_magang']);
-    Route::post('/update-task-status/{id}', [ProjekController::class, 'quickUpdate'])->name('task.quickUpdate');
+    Route::post('/update-task-status/{id}', [ProjekTaskController::class, 'quickUpdate'])->name('task.quickUpdate');
 
     Route::patch('/magang/projek-task/{id}/url', [ProjekTaskController::class, 'updateUrl'])->name('magang.projek-task.updateUrl');
 });

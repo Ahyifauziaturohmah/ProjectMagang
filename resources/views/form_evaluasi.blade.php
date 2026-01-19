@@ -71,40 +71,26 @@
                 <hr class="border-gray-400 my-4">
 
                 <form action="{{ route('task.detail.pengumpulan.store', ['id' => $data->id]) }}" method="post" class="space-y-6">
-                    @csrf
-                    <div>
-                        <label for="evaluasi" class="block font-semibold mb-2">Evaluasi:</label>
-                        <textarea id="evaluasi" name="evaluasi" rows="6" required
-                        {{-- KELAS INI MEMBUAT TEXTAREA TERLIHAT JELAS: border-gray-300 --}}
-                        class="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-400 resize-y"></textarea>
-                    </div>
-                    <div class="flex justify-end">
-                        <button type="submit"
-                        class="bg-pink-400 hover:bg-pink-500 text-white font-semibold py-2 px-8 rounded-full shadow-md transition duration-200">
-                        Simpan
-                        </button>
-                    </div>
-                </form>
+                  @csrf
+                  <div>
+                      <label for="evaluasi" class="block font-semibold mb-2">Evaluasi:</label>
+                      <textarea id="evaluasi" name="evaluasi" rows="6" required
+                          class="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-400 resize-y">{{ old('evaluasi', $data->evaluasi) }}</textarea>
+                      
+                  </div>
+                  
+                  <div class="flex justify-end flex-col items-end gap-2">
+                      @if($data->evaluasi)
+                          <span class="text-xs text-green-600 font-medium italic">Evaluasi sudah pernah diisi sebelumnya</span>
+                      @endif
+                      <button type="submit"
+                          class="bg-pink-400 hover:bg-pink-500 text-white font-semibold py-2 px-8 rounded-full shadow-md transition duration-200">
+                          {{ $data->evaluasi ? 'Update Evaluasi' : 'Simpan' }}
+                      </button>
+                  </div>
+              </form>
             
         </div>
-      
-
-    {{-- <form action="{{ route('task.detail.pengumpulan.store', ['id' => $data->id]) }}" method="post" class=" p-8 space-y-6 max-w-xl ">
-        
-        
-        @csrf
-        <div>
-            <label for="evaluasi" class="block text-white font-semibold mb-2">Evaluasi:</label>
-            <textarea id="evaluasi" name="evaluasi" rows="6" required
-            class="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-400 resize-y"></textarea>
-        </div>
-        <div class="flex justify-end absolute right-20 bottom-12">
-            <button type="submit"
-            class="bg-pink-400 hover:bg-pink-500 text-white font-semibold py-2 px-8 rounded-full shadow-md transition duration-200">
-            Simpan
-            </button>
-        </div>
-    </form> --}}
 
     </div>
   </div>

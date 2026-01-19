@@ -9,6 +9,19 @@
 </head>
 <body class="bg-[#1B7BA6] min-h-screen flex flex-col">
 
+    @if (session('success'))
+        <div x-data="{ show: true }" 
+            x-show="show" 
+            x-init="setTimeout(() => show = false, 3000)" 
+            x-transition:leave.duration.500ms
+            class="fixed top-5 right-5 z-50 p-4 rounded-lg shadow-xl text-white font-semibold flex items-center space-x-2 bg-pink-500 border border-pink-400">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <p>{{ session('success') }}</p>
+        </div>
+    @endif
+
   <div x-data="{ open: false }" class="flex flex-1">
 
     <!-- Sidebar -->
@@ -47,21 +60,37 @@
         <h1 class="text-white text-3xl font-semibold mb-10">
             {{ $projek->nama }}
         </h1>
-
+        
         <!-- Card Wrapper -->
         <div class="grid grid-cols-2 gap-8 max-w-6xl">
             
         @forelse ($projek->anggota as $member)
         <div class="bg-white rounded-2xl p-6">
-            <h2 class="text-pink-400 text-2xl font-semibold">
-                {{ $member->user->name ?? 'User Tidak Ditemukan' }} </h2>
-            <p class="text-pink-400 text-sm mb-6">{{ $member->role }}</p>
+            <div class="flex justify-between items-start mb-6">
+                <div>
+                    <h2 class="text-pink-400 text-2xl font-semibold leading-tight">
+                        {{ $member->user->name ?? 'User Tidak Ditemukan' }}
+                    </h2>
+                    <p class="text-pink-400 text-sm">{{ $member->role }}</p>
+                </div>
+                <div>
+                    <form action="{{ route('mentor.member.destroy', $member->id) }}" method="POST" onsubmit="return confirm('Keluarkan anggota ini?')">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="inline-flex items-center justify-center bg-red-600 text-white p-2 rounded-full shadow-lg hover:bg-red-800 transition-all">
+                            <img src="{{ asset('img/Delete.png') }}" alt="delete icon" class="h-5 w-5">
+                        </button>
+                    </form>
+                    <p class="text-pink-400 text-sm">Hapus <br> Keanggotaan</p>
+                </div>
+            </div>   
 
-            <div class="grid grid-cols-4 text-sm text-pink-400 font-semibold mb-3">
+            <div class="grid grid-cols-5 text-sm text-pink-400 font-semibold mb-3">
                 <span>Task</span>
                 <span class="text-center">✔</span>
                 <span>Status</span>
                 <span>URL</span>
+                <span>Option</span>
             </div>
 
             <div class="space-y-4">
@@ -70,7 +99,7 @@
                 @endphp
 
                 @forelse ($memberTasks as $task)
-                    <div class="grid grid-cols-4 items-center">
+                    <div class="grid grid-cols-5 items-center">
                         <span class="text-pink-400">{{ $task->nama }}</span>
                         <div class="flex justify-center">
                 <input type="checkbox" 
@@ -98,7 +127,22 @@
             </form>
             </div>
             <a href="{{ $task->url }}" class="text-blue-500 text-xs truncate">Link</a>
+            <div class="flex items-center space-x-2">
+    <a href="{{ route('mentor.task.edit', $task->id) }}" 
+        class="inline-flex items-center justify-center bg-[#ff8800] text-white p-2 rounded-full shadow-lg hover:bg-[#a85a00] transition-colors duration-200">
+        <img src="{{ asset('img/EditPencil.png') }}" alt="edit icon" class="h-4 w-4">
+    </a>
+
+    <form action="{{ route('mentor.task.destroy', $task->id) }}" method="POST" onsubmit="return confirm('Hapus task ini?')">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="inline-flex items-center justify-center bg-red-600 text-white p-2 rounded-full shadow-lg hover:bg-red-800 transition-all">
+            <img src="{{ asset('img/Delete.png') }}" alt="delete icon" class="h-4 w-4">
+        </button>
+    </form>
+</div>
             </div>
+            
             @empty
                 <div class="text-gray-400 text-sm">Belum ada task ditugaskan.</div>
             @endforelse
@@ -110,7 +154,10 @@
 
             
 
-        <!-- BUTTON -->
+        
+    </div>
+    <!-- BUTTON -->
+       
         <div class="flex gap-4 mt-10">
             <button class="bg-pink-400 text-white px-6 py-2 rounded-full hover:opacity-90">
                 <a href="{{ route('mentor.projek.task.create', $projek->id) }}">
@@ -123,8 +170,6 @@
                 </a>
             </button>
         </div>
-    </div>
-
     
 </body>
 </html>

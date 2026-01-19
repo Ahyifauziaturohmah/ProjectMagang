@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\WhatsappHelper;
 use App\Models\Pengumpulan;
 use App\Models\Task;
 use Illuminate\Http\Request;
@@ -41,16 +42,24 @@ class PengumpulanController extends Controller
             'evaluasi' => 'required|string|max:5000',
         ]);
 
-        $pengumpulan = Pengumpulan::findOrFail($id);
+        $pengumpulan = Pengumpulan::with(['user.contact', 'task'])->findOrFail($id);
         $pengumpulan->evaluasi = $request->evaluasi;
         $pengumpulan->save();
 
-        return redirect()->route('laman.task', ['id' => $pengumpulan->task_id])
+        $mhs = $pengumpulan->user;
+        $nomorWa = $mhs->contact?->kontak;
+
+        if ($nomorWa) {
+            $pesan = "*EVALUASI TUGAS*\n\n" .
+                    "Halo *{$mhs->name}*,\n" .
+                    "Tugas *{$pengumpulan->task->judul}* sudah dievaluasi oleh mentor.\n\n" .
+                    "*Hasil Evaluasi:* \n_" . strip_tags($request->evaluasi) . "_";
+
+            WhatsappHelper::send($nomorWa, $pesan);
+        }
+
+        return redirect()->route('task.pengumpulan.byTask', ['task_id' => $pengumpulan->task_id])
                         ->with('success', 'Evaluasi berhasil disimpan');
     }
-
-    
-
-
     
 }

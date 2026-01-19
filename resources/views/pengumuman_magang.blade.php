@@ -41,11 +41,11 @@
     </div>
 
     <!-- Main Content -->
-    <div class="flex-1 p-10 overflow-auto">
+    <div class="flex-1 p-10 overflow-auto h-screen">
       <h1 class="text-white text-3xl font-bold mb-6 leading-tight">Pengumuman!</h1>
 
       <!-- Container Scroll -->
-      <div class="h-[500px] overflow-y-auto space-y-10 pr-2">
+      <div class="overflow-y-auto space-y-10 pr-2">
         @foreach ($data as $item)
           <div class="p-4 rounded-lg shadow-md bg-white text-black">
             <h2 class=" text-xl font-semibold mb-2">{{ $item->judul }}</h2>
