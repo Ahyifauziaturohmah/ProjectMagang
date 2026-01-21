@@ -125,7 +125,7 @@ class TaskController extends Controller
         $request->validate([
             'tautan' => 'required|string|max:2048',
         ]);
-
+        $task = Task::findOrFail($id);
         $user = Auth::user();
         $tautan = $request->input('tautan');
 
