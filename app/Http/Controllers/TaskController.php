@@ -26,7 +26,7 @@ class TaskController extends Controller
         return view('daftar_pengumpulan', compact('task'));
     }
     public function submit($id) {
-        
+        return "ID yang dikirim adalah: " . $id;
         $data = Task::with('pengumpulan')->findOrFail($id);
         return view('pengumpulan_magang')->with('data', $data);
     }
