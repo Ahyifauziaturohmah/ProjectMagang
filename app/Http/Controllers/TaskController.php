@@ -26,9 +26,22 @@ class TaskController extends Controller
         return view('daftar_pengumpulan', compact('task'));
     }
     public function submit($id) {
-        return "ID yang dikirim adalah: " . $id;
-        $data = Task::with('pengumpulan')->findOrFail($id);
-        return view('pengumpulan_magang')->with('data', $data);
+        $task = \App\Models\Task::find($id);
+
+    // 2. Cek apakah datanya ketemu?
+    if (!$task) {
+        return "Gagal: Data Task ID " . $id . " tidak ditemukan di database Railway.";
+    }
+
+    // 3. Cek apakah file Blade-nya ada?
+    // Jika file kamu ada di resources/views/magang/submit.blade.php
+    if (!view()->exists('magang.submit')) {
+        return "Gagal: File Blade 'resources/views/magang/pengumpulan_magang.blade.php' tidak ditemukan. Cek huruf besar/kecilnya!";
+    }
+
+    return view('magang.submit', compact('task'));
+        // $data = Task::with('pengumpulan')->findOrFail($id);
+        // return view('pengumpulan_magang')->with('data', $data);
     }
 
     public function magang(){
