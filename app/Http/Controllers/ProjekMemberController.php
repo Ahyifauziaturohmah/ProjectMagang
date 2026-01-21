@@ -20,6 +20,7 @@ class ProjekMemberController extends Controller
 
     public function store(Request $request, $id)
     {
+        try {
         // dd($request->all());
         // 1. Validasi data array members
         $request->validate([
@@ -60,13 +61,11 @@ class ProjekMemberController extends Controller
                 \App\Helpers\WhatsappHelper::send($nomorTarget, $pesan);
             }
         }
-        // Ganti sementara baris redirect paling bawah dengan ini:
-    return response()->json([
-        'status' => 'success',
-        'message' => 'Data sampai di controller',
-        'data' => $request->all()
-    ]);
-}
+        return redirect()->back()->with('success', 'Berhasil!');
+    } catch (\Exception $e) {
+        // Jika error, dia bakal balik ke halaman sebelumnya bawa pesan error
+        return redirect()->back()->withErrors(['msg' => $e->getMessage()]);
+    }
 
         // return redirect('/mentor/detail/team/projek/'.$id)
         //     ->with('success', 'Semua anggota dan role berhasil simpan');
