@@ -43,22 +43,22 @@ class ProjekMemberController extends Controller
                 ]
             );
 
-            // // 3. Ambil data User beserta kontaknya untuk kirim WA
-            // $user = \App\Models\User::with('contact')->find($item['user_id']);
+            // 3. Ambil data User beserta kontaknya untuk kirim WA
+            $user = \App\Models\User::with('contact')->find($item['user_id']);
 
-            // if ($user && $user->contact?->kontak) {
-            //     $nomorTarget = $user->contact->kontak;
+            if ($user && $user->contact?->kontak) {
+                $nomorTarget = $user->contact->kontak;
                 
-            //     $pesan = "*UNDANGAN PROJEK BARU*\n\n" .
-            //             "Halo *{$user->name}*,\n" .
-            //             "Kamu telah ditunjuk untuk bergabung dalam projek tim:\n\n" .
-            //             "*Projek:* {$projek->nama}\n" .
-            //             "*Role:* {$item['role']}\n\n" .
-            //             "Silakan koordinasi dengan anggota tim lainnya di dashboard. Semangat!";
+                $pesan = "*UNDANGAN PROJEK BARU*\n\n" .
+                        "Halo *{$user->name}*,\n" .
+                        "Kamu telah ditunjuk untuk bergabung dalam projek tim:\n\n" .
+                        "*Projek:* {$projek->nama}\n" .
+                        "*Role:* {$item['role']}\n\n" .
+                        "Silakan koordinasi dengan anggota tim lainnya di dashboard. Semangat!";
 
-            //     // Kirim notifikasi per orang
-            //     \App\Helpers\WhatsappHelper::send($nomorTarget, $pesan);
-            // }
+                // Kirim notifikasi per orang
+                \App\Helpers\WhatsappHelper::send($nomorTarget, $pesan);
+            }
         }
 
         return redirect('/mentor/detail/team/projek/'.$id)
