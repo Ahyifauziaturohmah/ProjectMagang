@@ -43,7 +43,7 @@
 
     <!-- Main Content -->
     <div class="flex-1 p-20 overflow-auto">
-      <form method="POST" action="{{route('mentor.team.role.store', ['id'=> $projek->id ])}}" class="bg-white w-full max-w-3xl rounded-2xl p-8 space-y-8">
+      <form method="POST" action="/mentor/team/role/store/{{ $projek->id }}" class="bg-white w-full max-w-3xl rounded-2xl p-8 space-y-8">
         @csrf
 <input type="hidden" name="projek_id" value="{{ $projek->id }}">
         <h1 class="text-2xl font-semibold text-[#1c7cab]">
