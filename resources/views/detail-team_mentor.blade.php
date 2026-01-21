@@ -126,7 +126,7 @@
                 </select>
             </form>
             </div>
-            <a href="{{ $task->submission->url }}" class="text-blue-500 text-xs truncate"> {{ $task->submission->url }} </a>
+            <a href="{{ $task->url }}" class="text-blue-500 text-xs truncate"> {{ $task->url }} </a>
             <div class="flex items-center space-x-2">
     <a href="{{ route('mentor.task.edit', $task->id) }}" 
         class="inline-flex items-center justify-center bg-[#ff8800] text-white p-2 rounded-full shadow-lg hover:bg-[#a85a00] transition-colors duration-200">
