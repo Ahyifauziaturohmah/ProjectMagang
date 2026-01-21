@@ -126,7 +126,15 @@
                 </select>
             </form>
             </div>
-            {{-- <a href="{{ $task->url }}" class="text-blue-500 text-xs truncate"> {{ $task->url }} </a> --}}
+            <div class="overflow-hidden">
+                @if($task->submission && $task->submission->url)
+                    <a href="{{ $task->submission->url }}" target="_blank" title="{{ $task->submission->url }}" class="text-blue-500 text-xs truncate block">
+                        Link Tugas
+                    </a>
+                @else
+                    <span class="text-gray-400 text-xs">Belum ada</span>
+                @endif
+            </div>
             <div class="flex items-center space-x-2">
     <a href="{{ route('mentor.task.edit', $task->id) }}" 
         class="inline-flex items-center justify-center bg-[#ff8800] text-white p-2 rounded-full shadow-lg hover:bg-[#a85a00] transition-colors duration-200">
