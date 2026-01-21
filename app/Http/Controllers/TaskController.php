@@ -122,6 +122,7 @@ class TaskController extends Controller
 
     public function submitTugas(Request $request, Task $task)
     {
+        dd($request->all());
         $request->validate([
             'tautan' => 'required|string|max:2048',
         ]);
