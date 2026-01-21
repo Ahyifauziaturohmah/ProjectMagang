@@ -82,6 +82,9 @@
                 <a href="{{ route('task.submit', $item->id) }}" class="bg-pink-400 text-white px-4 py-1 rounded-full font-semibold text-sm hover:bg-pink-500">
                     Detail
                 </a>
+                <a href="/magang/task/pengumpulan/{{ $item->id }}" class="bg-pink-500 text-white p-2">
+   TES LINK MANUAL
+</a>
               </td>
             </tr>  
             @endforeach
