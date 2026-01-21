@@ -122,7 +122,7 @@ class TaskController extends Controller
 
     public function submitTugas(Request $request, Task $task)
     {
-        dd($request->all());
+        try {
         $request->validate([
             'tautan' => 'required|string|max:2048',
         ]);
@@ -150,6 +150,10 @@ class TaskController extends Controller
         }
 
         return redirect()->route('task.magang')->with('success', 'Tugas berhasil dikumpulkan!');
+    } catch (\Exception $e) {
+        // INI AKAN MENUNJUKKAN ERROR ASLINYA
+        dd($e->getMessage()); 
+    }
     }
 
     
