@@ -120,7 +120,7 @@ class TaskController extends Controller
     }
 
 
-    public function submitTugas(Request $request, Task $task)
+    public function submitTugas(Request $request, $id)
     {
         try {
         $request->validate([
