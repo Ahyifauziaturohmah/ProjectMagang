@@ -101,7 +101,7 @@
         @endif
 
         {{-- Formulir Pengumpulan Tautan --}}
-        <form action="{{ route('task.submit', ['task' => $data->id]) }}" method="post" class="space-y-6">
+        <form action="{{ route('task.submit.store', $task->id) }}" method="post" class="space-y-6">
             @csrf
             <input type="hidden" name="user_id" value="{{ Auth::id() }}">
             <input type="hidden" name="task_id" value="{{ $data->id }}">
