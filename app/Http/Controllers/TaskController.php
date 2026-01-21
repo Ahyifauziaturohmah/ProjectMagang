@@ -26,18 +26,19 @@ class TaskController extends Controller
         return view('daftar_pengumpulan', compact('task'));
     }
     public function submit($id) {
-        try {
-            // Cek apakah data ketemu dan relasi aman
-            $task = Task::with(['kelas', 'pengumpulan'])->findOrFail($id);
-            return view('pengumpulan_magang', compact('task'));
-        } catch (\Exception $e) {
-            // Ini akan memunculkan tulisan error aslinya di layar
-            return response()->json([
-                'pesan_error' => $e->getMessage(),
-                'file' => $e->getFile(),
-                'baris' => $e->getLine()
-            ]);
+        // 1. Tes apakah model Task bisa dipanggil
+        $task = \App\Models\Task::find($id);
+        
+        if (!$task) {
+            return "Error: Data Task dengan ID $id tidak ditemukan di database.";
         }
+    
+        // 2. Tes apakah relasi kelas ada
+        if (!$task->kelas) {
+            return "Error: Task ini tidak punya relasi 'kelas'. Cek model Task.php";
+        }
+    
+        return view('pengumpulan_magang', compact('task'));
     }
 
     public function magang(){
