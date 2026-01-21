@@ -60,9 +60,16 @@ class ProjekMemberController extends Controller
                 \App\Helpers\WhatsappHelper::send($nomorTarget, $pesan);
             }
         }
+        // Ganti sementara baris redirect paling bawah dengan ini:
+    return response()->json([
+        'status' => 'success',
+        'message' => 'Data sampai di controller',
+        'data' => $request->all()
+    ]);
+}
 
-        return redirect('/mentor/detail/team/projek/'.$id)
-            ->with('success', 'Semua anggota dan role berhasil simpan');
+        // return redirect('/mentor/detail/team/projek/'.$id)
+        //     ->with('success', 'Semua anggota dan role berhasil simpan');
     }
 
     public function setRole(Request $request)
