@@ -79,7 +79,7 @@
               <td class="px-6 py-3 border border-gray-200">{{$item->tenggat}}</td>
               <td class="px-6 py-3 border border-gray-200">{{$item->kelas->nama_kelas}}</td>
               <td class="px-6 py-3 border border-gray-200">
-                <a href="{{ route('task.submit', $item->id) }}" class="bg-pink-400 text-white px-4 py-1 rounded-full font-semibold text-sm hover:bg-pink-500">
+                <a href="{{ route('task.submit',['id'=> $item->id)] }}" class="bg-pink-400 text-white px-4 py-1 rounded-full font-semibold text-sm hover:bg-pink-500">
                     Detail
                 </a>
                 <a href="/magang/task/pengumpulan/{{ $item->id }}" class="bg-pink-500 text-white p-2">
