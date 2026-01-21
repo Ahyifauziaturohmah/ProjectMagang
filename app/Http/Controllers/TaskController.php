@@ -36,10 +36,10 @@ class TaskController extends Controller
     // 3. Cek apakah file Blade-nya ada?
     // Jika file kamu ada di resources/views/magang/submit.blade.php
     if (!view()->exists('magang.submit')) {
-        return "Gagal: File Blade 'resources/views/magang/pengumpulan_magang.blade.php' tidak ditemukan. Cek huruf besar/kecilnya!";
+        return "Gagal: File Blade 'resources/views/magang/submit.blade.php' tidak ditemukan. Cek huruf besar/kecilnya!";
     }
 
-    return view('magang.submit', compact('task'));
+    return view('pengumpulan_magang', compact('task'));
         // $data = Task::with('pengumpulan')->findOrFail($id);
         // return view('pengumpulan_magang')->with('data', $data);
     }
