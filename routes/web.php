@@ -94,7 +94,7 @@ Route::delete('/magang/delete/{id}', [userController::class, 'destroy'])->name('
     Route::put('/mentor/task/{id}', [ProjekTaskController::class, 'update'])->name('mentor.task.update');
     Route::delete('/mentor/task/{id}', [ProjekTaskController::class, 'destroy'])->name('mentor.task.destroy');
     Route::patch('/mentor/task/{id}/status', [ProjekTaskController::class, 'updateTaskStatus']) ->name('mentor.task.updateStatus');
-    Route::patch('/mentor/task/update/{id}', [ProjekTaskController::class, 'updateTaskStatus'])->name('task.update');
+    Route::patch('/mentor/task/update/{id}', [ProjekTaskController::class, 'updateTaskStatus'])->name('task.update.status');
 
     Route::get('/mentor/team/role/create/{id}', [ProjekMemberController::class, 'create'])->name('mentor.team.role.create');
     Route::post('/mentor/team/role/store/{id}', [ProjekMemberController::class, 'store'])->name('mentor.team.role.store');
