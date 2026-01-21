@@ -114,7 +114,7 @@ Route::middleware(['auth', 'magang'])->group(function () {
     Route::get('/magang/task', [TaskController::class, 'magang'])->name('task.magang');
 
     Route::get('/magang/task/pengumpulan/{id}', [TaskController::class, 'submit'])->name('task.submit');
-    Route::post('/magang/task/pengumpulan/{task}', [TaskController::class, 'submitTugas'])->name('task.submit');
+    Route::post('/magang/task/pengumpulan/{task}', [TaskController::class, 'submitTugas'])->name('task.submit.store');
 
     Route::get('/magang/team/projek', [ProjekController::class, 'index_magang']);
     
