@@ -20,6 +20,7 @@ class ProjekMemberController extends Controller
 
     public function store(Request $request, $id)
     {
+        dd($request->all());
         // 1. Validasi data array members
         $request->validate([
             'members' => 'required|array',
