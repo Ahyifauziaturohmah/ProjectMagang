@@ -26,11 +26,12 @@ class TaskController extends Controller
         return view('daftar_pengumpulan', compact('task'));
     }
     public function submit($id) {
-        $task = Task::findOrFail($id);
-        return view('pengumpulan_magang', compact('task'));
-
-        // $data = Task::with('pengumpulan')->findOrFail($id);
-        // return view('pengumpulan_magang')->with('data', $data);
+        try {
+            $task = Task::with('kelas')->findOrFail($id);
+            return view('pengumpulan_magang', compact('task'));
+        } catch (\Exception $e) {
+            return "Error: " . $e->getMessage();
+        }
     }
 
     public function magang(){
