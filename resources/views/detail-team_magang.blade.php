@@ -58,7 +58,7 @@
     <div class="flex-1 p-20 overflow-auto">
             <!-- Judul Projek -->
         <h1 class="text-white text-3xl font-semibold mb-10">
-            Nama Projek
+            {{ $projek->nama }}
         </h1>
    <div class="grid grid-cols-2 gap-8 max-w-6xl">
     @forelse ($projek->anggota as $member)
